@@ -35,20 +35,34 @@ class Register extends Component {
         return(
             <div>
                 <form noValidate onSubmit={this.onSubmit}>
-                    <h1>Please sign in</h1>
-                        <div>
-                            <label htmlFor="idMatricule">idMatricule</label>
-                            <input type="text" name="idMatricule" value={this.state.idMatricule} onChange={this.onChange} />
+
+                        <div className="login">
+                        <div class="login-screen">
+                        <div class="app-title"><h1>Please sign in</h1></div>
+                        <div class="login-form">
+
+                            <div class="control-group">
+                            <label htmlFor="idMatricule" class="login-field-icon fui-lock"></label>
+                            <input type="text" name="idMatricule" value={this.state.idMatricule}
+                            onChange={this.onChange} placeholder="idMatricule" class="login-field"/>
+                            </div>
+
+                            <div class="control-group">
+                            <label htmlFor="motDePasse" class="login-field-icon fui-lock"></label>
+                            <input type="text" name="motDePasse" value={this.state.motDePasse}
+                            noChange={this.onChange} placeholder="MotDePasse" class="login-field" />
+                            </div>
+
+                            <div class="control-group">
+                            <label htmlFor="fonction" class="login-field-icon fui-lock"></label>
+                            <input type="text" name="fonction" value={this.state.fonction}
+                            onChange={this.onChange} placeholder="fonction" class="login-field"/>
+                            </div>
+
+                            <input type="submit" value="Register" class="btn btn-primary btn-large btn-block" />
                         </div>
-                        <div>
-                            <label htmlFor="motDePasse">MotDePasse</label>
-                            <input type="text" name="motDePasse" value={this.state.motDePasse} onChange={this.onChange} />
                         </div>
-                         <div>
-                            <label htmlFor="fonction">fonction</label>
-                            <input type="text" name="fonction" value={this.state.fonction} onChange={this.onChange} />
                         </div>
-                        <button type="submit">Register </button>
                 </form>
             </div>
         )
