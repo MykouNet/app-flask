@@ -38,7 +38,7 @@ class Login extends Component {
         return(
 
             <form onSubmit={this.onSubmit} >
-                <div class="login">
+                <div className="login">
 
                     <div class="login-screen">
 

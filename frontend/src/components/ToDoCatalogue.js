@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+//import RNHTMLtoPDF from 'react-native-html-to-pdf';
+
 const SERVER_URL = 'http://localhost:5000'
 const API_URL = SERVER_URL + '/api'
 
@@ -97,6 +99,23 @@ class ToDoCatalogue extends Component {
     }
 
   };
+
+  handlePDFClick = (produit, e) => {
+    e.preventDefault();
+    console.log('The link PDF was clicked.', produit);
+    const generateHTML = produit =>
+        <div><span>${produit}</span></div>
+
+    const html = generateHTML(this.state.produit)
+    console.log('The link PDF was clicked.', produit)
+
+    const options = {html,
+        fileName: "test",
+        directory: "Documents"
+    };
+   // const file = RNHTMLtoPDF.convert(options);
+
+  }
 
   handleUpdateClick = (id, e) => {
     e.preventDefault();
@@ -199,7 +218,8 @@ class ToDoCatalogue extends Component {
                 <td>Puissance</td>
                 <td>Image </td>
                 <td>Modifier Produit</td>                
-                <td>Supprimer Produit</td>                
+                <td>Supprimer Produit</td>
+                <td>PDF Produit</td>
             </tr>
             </thead>
             <tbody>
@@ -212,6 +232,7 @@ class ToDoCatalogue extends Component {
                   <td>{ produit.image }</td>
                   <td><a href="#" onClick={this.handleDisplayFormUpdateClick.bind(this, produit.idEngin)}>Modifier Produit</a></td>
                   <td><a href="#" onClick={this.handleDeleteClick.bind(this, produit.idEngin)}>Supprimer</a></td>
+                  <td><a href="#" onClick={this.handlePDFClick.bind(this, produit)}>PDF</a></td>
                 </tr>)
                 }
             </tbody>            
