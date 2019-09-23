@@ -50,7 +50,7 @@ class Register extends Component {
                             <div class="control-group">
                             <label htmlFor="motDePasse" class="login-field-icon fui-lock"></label>
                             <input type="text" name="motDePasse" value={this.state.motDePasse}
-                            noChange={this.onChange} placeholder="MotDePasse" class="login-field" />
+                            onChange={this.onChange} placeholder="Mot De Passe" class="login-field" />
                             </div>
 
                             <div class="control-group">

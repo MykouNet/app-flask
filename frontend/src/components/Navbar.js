@@ -29,6 +29,9 @@ renvoie de 2 possibilités d'embranchements, les objets apparaissant sur la page
                     <Link className='nav-link' to="/catalogue">Catalogue</Link>
                 </li>
                 <li className="nav-item">
+                    <Link className='nav-link' to="/ajoutproduit">Ajout d un engin</Link>
+                </li>
+                <li className="nav-item">
                     <Link className='nav-link' to="/register">Register</Link>
                 </li>
                 <li className="nav-item">

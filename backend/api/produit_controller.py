@@ -10,7 +10,7 @@ def list_produits_controlleur():
     #Fonctionnel
     produitService = ProduitService()
     listProduits = produitService.getListProduits()
-
+    print( "passage ")
     listProduitsJSON = []
 
     for produit in listProduits:
@@ -21,7 +21,7 @@ def list_produits_controlleur():
         p['puissance'] = produit.puissance
         p['image'] = produit.image
         listProduitsJSON.append(p)
-
+        print(listProduitsJSON)
     return jsonify(listProduitsJSON)
 
 #Pour tester : Utiliser POSTMAN

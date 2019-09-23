@@ -42,7 +42,7 @@ def create_login_controlleur():
 def update_login_controlleur(idMatricule):
     # Mettre à jour le login dans la base de données
     # Fonctionnel
-    loginService = LoginServiceService()
+    loginService = LoginService()
     login = request.json
     login['idMatricule'] = idMatricule
     isOk = loginService.updateLogin(login)

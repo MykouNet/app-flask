@@ -4,7 +4,7 @@ from .models import Produit
 class ProduitDao:
 
     def __init__(self):
-        self.mydb = getDB()    
+        self.mydb = getDB()
 
     def getListProduits(self):
         query = 'SELECT * FROM catalogue'
@@ -12,6 +12,7 @@ class ProduitDao:
         mycursor.execute(query)
         myresults = mycursor.fetchall()
         
+        self.mydb.commit()
         mycursor.close()
 
         listProduits = []
@@ -28,6 +29,7 @@ class ProduitDao:
             produit.puissance = p['puissance']
             produit.image = p['image']
             listProduits.append(produit)
+            print(produit)
 
         return listProduits
 
@@ -37,6 +39,8 @@ class ProduitDao:
         mycursor = self.mydb.cursor(dictionary=True)
         mycursor.execute(query)
         myresult = mycursor.fetchone()
+
+        self.mydb.commit()
         mycursor.close()
 
         print("Produit : ", myresult)
@@ -46,11 +50,11 @@ class ProduitDao:
 
         #Creation d'une instance de la classe Produit
         produit = Produit()
-        produit.id = myresult['id']
+        produit.id = myresult['idEngin']
         produit.nom = myresult['nom']
+        produit.gamme = myresult['gamme']
+        produit.puissance = myresult['puissance']
         produit.image = myresult['image']
-        produit.qty = myresult['qty']
-        produit.prix = myresult['prix']
 
         return produit
 

@@ -7,6 +7,7 @@ import { BrowserRouter as Router, NavLink, Link } from 'react-router-dom'
         <NavLink to="/menu"></NavLink>
         <NavLink to="/register">Utilisateurs</NavLink>
         <NavLink to="/catalogue">Catalogue</NavLink>
+        <NavLink to="/ajoutproduit">Ajout d un engin</NavLink>
         <NavLink to="/contrats">Contrats</NavLink>
       </nav>
     )

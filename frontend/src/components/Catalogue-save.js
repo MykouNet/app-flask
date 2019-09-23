@@ -1,9 +1,7 @@
 import React, {Component} from 'react'
-import { Button, Item, Grid } from 'semantic-ui-react'
-
-import Shop from './Shop'
 import { catalogue } from './UserFunctions'
 import ToDoCatalogue from './ToDoCatalogue'
+import Shop from './Shop'
 
 
 class Catalogue extends Component {
@@ -44,6 +42,7 @@ class Catalogue extends Component {
     render (){
         return(
             <div>
+                <ToDoCatalogue />
                 <Shop />
             </div>
         )
