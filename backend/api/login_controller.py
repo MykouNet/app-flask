@@ -2,8 +2,10 @@ from flask import jsonify
 from . import routesAPIREST
 from flask import session, redirect, request, render_template
 
-from .services import LoginService
+from .services import *
 
+'''
+from .services import LoginService
 # Pour tester : Utiliser POSTMAN
 @routesAPIREST.route('/login/<int:id>', methods=['GET'])
 def get_login_controlleur(id):
@@ -20,6 +22,9 @@ def get_login_controlleur(id):
     p['fonction'] = login.fonction
 
     return jsonify(p)
+
+
+'''
 
 
 # Pour tester : Utiliser POSTMAN
@@ -42,7 +47,7 @@ def create_login_controlleur():
 def update_login_controlleur(idMatricule):
     # Mettre à jour le login dans la base de données
     # Fonctionnel
-    loginService = LoginServiceService()
+    loginService = LoginService()
     login = request.json
     login['idMatricule'] = idMatricule
     isOk = loginService.updateLogin(login)
@@ -67,6 +72,7 @@ def delete_login_controlleur(idMatricule):
 
 @routesAPIREST.route('/login', methods=['GET', 'POST'])
 def authentificateLogin():
+    print("passage authentif")
     idMatricule = request.get_json()['idMatricule']
     motDePasse  = request.get_json()['motDePasse']
     loginService = LoginService()

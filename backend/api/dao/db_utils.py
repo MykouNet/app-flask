@@ -8,7 +8,7 @@ mydb = mysql.connector.connect(
   host="localhost",
   user="root",
   passwd="root",
-  database="database-projet",
+  database="databaseprojet",
   port=3306
 )
 

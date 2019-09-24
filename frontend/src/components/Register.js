@@ -37,29 +37,29 @@ class Register extends Component {
                 <form noValidate onSubmit={this.onSubmit}>
 
                         <div className="login">
-                        <div class="login-screen">
-                        <div class="app-title"><h1>Please sign in</h1></div>
-                        <div class="login-form">
+                        <div className="login-screen">
+                        <div className="app-title"><h1>Ajoutez un nouvel utilisateur</h1></div>
+                        <div className="login-form">
 
-                            <div class="control-group">
-                            <label htmlFor="idMatricule" class="login-field-icon fui-lock"></label>
+                            <div className="control-group">
+                            <label htmlFor="idMatricule" className="login-field-icon fui-lock"></label>
                             <input type="text" name="idMatricule" value={this.state.idMatricule}
-                            onChange={this.onChange} placeholder="idMatricule" class="login-field"/>
+                            onChange={this.onChange} placeholder="idMatricule" className="login-field"/>
                             </div>
 
-                            <div class="control-group">
-                            <label htmlFor="motDePasse" class="login-field-icon fui-lock"></label>
-                            <input type="text" name="motDePasse" value={this.state.motDePasse}
-                            noChange={this.onChange} placeholder="MotDePasse" class="login-field" />
+                            <div className="control-group">
+                            <label htmlFor="motDePasse" className="login-field-icon fui-lock"></label>
+                            <input type="password" name="motDePasse" value={this.state.motDePasse}
+                            onChange={this.onChange} placeholder="MotDePasse" className="login-field" />
                             </div>
 
-                            <div class="control-group">
-                            <label htmlFor="fonction" class="login-field-icon fui-lock"></label>
+                            <div className="control-group">
+                            <label htmlFor="fonction" className="login-field-icon fui-lock"></label>
                             <input type="text" name="fonction" value={this.state.fonction}
-                            onChange={this.onChange} placeholder="fonction" class="login-field"/>
+                            onChange={this.onChange} placeholder="fonction" className="login-field"/>
                             </div>
 
-                            <input type="submit" value="Register" class="btn btn-primary btn-large btn-block" />
+                            <input type="submit" value="Register" className="btn btn-primary btn-large btn-block" />
                         </div>
                         </div>
                         </div>

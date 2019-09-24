@@ -13,9 +13,9 @@ export const register = newUser => {
 }
 
 export const catalogue = newProduit => {
+    console.log(newProduit)
     return axios
     .post('http://localhost:5000/api/catalogue', {
-        idEngin : newProduit.idEngin,
         nom  : newProduit.nom,
         gamme    : newProduit.gamme,
         puissance : newProduit.puissance,

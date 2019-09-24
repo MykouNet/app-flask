@@ -24,15 +24,21 @@ renvoie de 2 possibilités d'embranchements, les objets apparaissant sur la page
             </ul>
         )
         const userLink = (
-            <ul className="navbar-nav">
+            <ul className="navbar-nav" >
+                <li className="nav-item">
+                    <Link className='nav-link' to="/ajout">Ajout Engin</Link>
+                </li>
+                <li className="nav-item">
+                    <Link className='nav-link' to="/register">Ajout Utilisateur</Link>
+                </li>
                 <li className="nav-item">
                     <Link className='nav-link' to="/catalogue">Catalogue</Link>
                 </li>
                 <li className="nav-item">
-                    <Link className='nav-link' to="/register">Register</Link>
+                    <Link className='nav-link' to="/reservation">Réservations </Link>
                 </li>
                 <li className="nav-item">
-                    <a href="" onClick={this.logOut.bind(this)} className='nav-link' >Logout</a>
+                    <a href="#" onClick={this.logOut.bind(this)} className='nav-link' >Logout</a>
                 </li>
             </ul>
         )

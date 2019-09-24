@@ -7,7 +7,8 @@ import Landing from './components/Landing'
 import Login from './components/Login'
 import Register from './components/Register'
 import Catalogue from './components/Catalogue'
-
+import AjoutEngin from './components/AjoutEngin'
+import Reservations from './components/Reservations'
 
 /*
 appel de Navbar => routage selon qu'on soit loggué (possibilité de se dé-logguer) ou pas (possibilité de se logguer ou s'enregistrer)
@@ -25,7 +26,8 @@ class App extends Component {
                     <Route exact path="/register" component={Register} />
                     <Route exact path="/login" component={Login} />
                     <Route exact path="/catalogue" component={Catalogue} />
-
+                    <Route exact path="/ajout" component={AjoutEngin} />
+                    <Route exact path="/reservation" component={Reservations} />
                 </div>
             </div>
         </Router>

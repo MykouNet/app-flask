@@ -37,27 +37,27 @@ class Login extends Component {
     render (){
         return(
 
-            <form onSubmit={this.onSubmit} >
-                <div class="login">
+            <form onSubmit={this.onSubmit} className="body">
+                <div className="login">
 
-                    <div class="login-screen">
+                    <div className="login-screen">
 
-                    <div class="app-title"><h1>Login</h1></div>
+                    <div className="app-title"><h1>Login</h1></div>
 
-                    <div class="login-form">
+                    <div className="login-form">
 
-                    <div class="control-group">
-                                    <input type="text" class="login-field" value={this.state.idMatricule}
+                    <div className="control-group">
+                                    <input type="text" className="login-field" value={this.state.idMatricule}
                                     onChange={this.onChange} placeholder="username" name="idMatricule"
                                      />
-                    <label class="login-field-icon fui-user" for="login-name"></label></div>
+                    <label className="login-field-icon fui-user" for="login-name"></label></div>
 
-                    <div class="control-group">
-                                    <input type="password" class="login-field" value={this.state.motDePasse}
+                    <div className="control-group">
+                                    <input type="password" className="login-field" value={this.state.motDePasse}
                                     onChange={this.onChange} placeholder="password" name="motDePasse" />
-                    <label class="login-field-icon fui-lock" for="login-pass"></label></div>
+                    <label className="login-field-icon fui-lock" for="login-pass"></label></div>
 
-                    <input type="submit" value="Log in" class="btn btn-primary btn-large btn-block" />
+                    <input type="submit" value="Log in" className="btn btn-primary btn-large btn-block" />
 
                     </div>
                     </div>
