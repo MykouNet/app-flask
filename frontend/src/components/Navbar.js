@@ -35,7 +35,10 @@ renvoie de 2 possibilités d'embranchements, les objets apparaissant sur la page
                     <Link className='nav-link' to="/catalogue">Catalogue</Link>
                 </li>
                 <li className="nav-item">
-                    <Link className='nav-link' to="/reservation">Réservations </Link>
+                    <Link className='nav-link' to="/reservation">Réservations PDF</Link>
+                </li>
+                <li className="nav-item">
+                    <Link className='nav-link' to="/fairesa">User Réservation</Link>
                 </li>
                 <li className="nav-item">
                     <a href="#" onClick={this.logOut.bind(this)} className='nav-link' >Logout</a>

@@ -1,17 +1,5 @@
 import axios from 'axios'
 
-export const register = newUser => {
-    return axios
-    .post('http://localhost:5000/api/register', {
-        idMatricule : newUser.idMatricule,
-        motDePasse  : newUser.motDePasse,
-        fonction    : newUser.fonction
-    })
-    .then(res => {
-        console.log(res)
-    })
-}
-
 export const catalogue = newProduit => {
     console.log(newProduit)
     return axios
@@ -20,6 +8,18 @@ export const catalogue = newProduit => {
         gamme    : newProduit.gamme,
         puissance : newProduit.puissance,
         image  : newProduit.image
+    })
+    .then(res => {
+        console.log(res)
+    })
+}
+
+export const register = newUser => {
+    return axios
+    .post('http://localhost:5000/api/register', {
+        idMatricule : newUser.idMatricule,
+        motDePasse  : newUser.motDePasse,
+        fonction    : newUser.fonction
     })
     .then(res => {
         console.log(res)

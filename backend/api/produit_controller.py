@@ -18,7 +18,7 @@ def list_produits_controlleur():
     #Fonctionnel
     produitService = ProduitService()
     listProduits = produitService.getListProduits()
-
+    print( "passage ")
     listProduitsJSON = []
 
     for produit in listProduits:
@@ -29,7 +29,7 @@ def list_produits_controlleur():
         p['puissance'] = produit.puissance
         p['image'] = produit.image
         listProduitsJSON.append(p)
-
+        print(listProduitsJSON)
     return jsonify(listProduitsJSON)
 
 #Pour tester : Utiliser POSTMAN
@@ -43,11 +43,11 @@ def get_produit_controlleur(id):
         return jsonify({ "message": "Le produit n'existe pas." })
 
     p = {}
-    p['id'] = produit.id
+    p['idEngin'] = produit.idEngin
     p['nom'] = produit.nom
+    p['gamme'] = produit.gamme
+    p['puissance'] = produit.puissance
     p['image'] = produit.image
-    p['qty'] = produit.qty
-    p['prix'] = produit.prix
 
     return jsonify(p)
 

@@ -4,14 +4,14 @@ from .models import Produit
 class ProduitDao:
 
     def __init__(self):
-        self.mydb = getDB()    
+        self.mydb = getDB()
 
     def getListProduits(self):
         query = 'SELECT * FROM catalogue'
         mycursor = self.mydb.cursor(dictionary=True)
         mycursor.execute(query)
         myresults = mycursor.fetchall()
-        
+
         mycursor.close()
 
         listProduits = []
@@ -36,21 +36,25 @@ class ProduitDao:
         query = 'SELECT * FROM catalogue WHERE idEngin = {0}'.format(id)
         mycursor = self.mydb.cursor(dictionary=True)
         mycursor.execute(query)
-        myresult = mycursor.fetchone()
+        myresult = mycursor.fetchall()
         mycursor.close()
 
-        print("Produit : ", myresult)
+        listProduits = []
+        for p in myresult:
 
-        if myresult is None:
-            return None
+            print("Produit : ", myresult)
 
-        #Creation d'une instance de la classe Produit
-        produit = Produit()
-        produit.id = myresult['id']
-        produit.nom = myresult['nom']
-        produit.image = myresult['image']
-        produit.qty = myresult['qty']
-        produit.prix = myresult['prix']
+            if myresult is None:
+                return None
+
+            #Creation d'une instance de la classe Produit
+            produit = Produit()
+            produit.idEngin = p['idEngin']
+            produit.nom = p['nom']
+            produit.gamme = p['gamme']
+            produit.puissance = p['puissance']
+            produit.image = p['image']
+            listProduits.append(produit)
 
         return produit
 
@@ -59,7 +63,7 @@ class ProduitDao:
         mycursor = self.mydb.cursor()
         vals = (produit['nom'], produit['gamme'], produit['puissance'], produit['image'])
         mycursor.execute(query, vals)
-        
+
         self.mydb.commit()
         rows_added = mycursor.rowcount
         mycursor.close()
@@ -74,7 +78,7 @@ class ProduitDao:
         mycursor = self.mydb.cursor()
         vals = ( produit['nom'], produit['gamme'], produit['puissance'], produit['image'], produit['idEngin'] )
         mycursor.execute(query, vals)
-        
+
         self.mydb.commit()
         rows_updated = mycursor.rowcount
         mycursor.close()
