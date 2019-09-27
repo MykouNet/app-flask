@@ -17,7 +17,8 @@ class ToDoCatalogue extends Component {
       "nom_produit_update": "",
       "gamme_produit_update": "",
       "puissance_produit_update": "",
-      "image_produit_update": ""
+      "image_produit_update": "",
+      "valueHref": ""
     };
     //avec un seul hangleFormChange : OK
     this.handleFormInputChange = this.handleFormInputChange.bind(this);
@@ -145,7 +146,7 @@ class ToDoCatalogue extends Component {
 
         <div style={this.state.display_update_form ? {} : { display: 'none' }}>
             <h2>Modifier le produit d'id = {this.state.idEngin_produit_update}</h2>
-            <a href='' onClick={this.handleHideUpdateFormClick.bind(this)}>Fermer le formulaire de mise à jour</a>
+            <a href='valueHref' onClick={this.handleHideUpdateFormClick.bind(this)}>Fermer le formulaire de mise à jour</a>
             <br />
             <br />
             <form align="center">
@@ -195,8 +196,8 @@ class ToDoCatalogue extends Component {
                         <img width="50px" height="50px" alt={produit.image} src={STATIC_URL + '/uploads/produits/' + produit.image} />
                         : "Pas d'image"}
                         </td>
-                        <td><a href="#" onClick={this.handleDisplayFormUpdateClick.bind(this, produit.idEngin)}>Modifier Produit</a></td>
-                        <td><a href="#" onClick={this.handleDeleteClick.bind(this, produit.idEngin)}>Supprimer</a></td>
+                        <td><a href="valueHref" onClick={this.handleDisplayFormUpdateClick.bind(this, produit.idEngin)}>Modifier Produit</a></td>
+                        <td><a href="valueHref" onClick={this.handleDeleteClick.bind(this, produit.idEngin)}>Supprimer</a></td>
                     </tr>)
                     }
                     </tbody>

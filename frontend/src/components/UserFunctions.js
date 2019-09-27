@@ -41,10 +41,11 @@ export const login = user => {
         }
         return res.data
     })
-//    .catch(err => {
-//        console.log(err)
-//    })
+    .catch(err => {
+        console.log(err)
+    })
  }
+
  export const profile = user => {
     return axios
     .get('http://localhost:5000/api/login' + user, {

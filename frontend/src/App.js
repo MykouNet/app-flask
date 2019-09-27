@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import './App.css';
 import {BrowserRouter as Router, Route} from 'react-router-dom'
-import { Button, Item, Grid } from 'semantic-ui-react'
 
 import Navbar from './components/Navbar'
 import Landing from './components/Landing'
@@ -12,6 +11,7 @@ import AjoutEngin from './components/AjoutEngin'
 import Reservations from './components/Reservations'
 import UserReservation from './components/UserReservation'
 import UserResa from './components/UserResa'
+//import ValidateLoginForm from './components/ValidateLoginForm'
 
 
 /*
@@ -23,6 +23,7 @@ class App extends Component {
     render() {
       return (
         <Router>
+
             <div className="App">
                 <Navbar />
                 <Route exact path="/" component={Landing} />

@@ -11,6 +11,7 @@ userLink donne la possibilité de se dé-logguer
         localStorage.removeItem('usertoken')
         this.props.history.push('/')
     }
+    dummy=""
 /*
 renvoie de 2 possibilités d'embranchements, les objets apparaissant sur la page localhost/ sont définis ci-dessous
 */
@@ -41,7 +42,7 @@ renvoie de 2 possibilités d'embranchements, les objets apparaissant sur la page
                     <Link className='nav-link' to="/fairesa">User Réservation</Link>
                 </li>
                 <li className="nav-item">
-                    <a href="#" onClick={this.logOut.bind(this)} className='nav-link' >Logout</a>
+                    <a href="dummy" onClick={this.logOut.bind(this)} className='nav-link' >Logout</a>
                 </li>
             </ul>
         )
@@ -51,7 +52,7 @@ embranchement si loggué, on va vers profile, si pas loggué on va vers Login/Re
 */
         return (
             <nav>
-                <button type="button" data-toggle="collapse"></button>
+   {/*             <button type="button" data-toggle="collapse"></button>   */}
                 <Link to='/'>Home</Link>
                 {localStorage.usertoken ? userLink : loginRegLink}
             </nav>

@@ -2,16 +2,15 @@ import React, { Component } from 'react'
 import { Button, Item, Grid } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 
-import UserResa from './UserResa'
 import { STATIC_URL } from '../Constantes';
 
 const ShopItem = (props) => {
-console.log(props)
+//onsole.log(props)
     return (
         <Item>
             <Item.Image size='small' alt={props.data.image} src={STATIC_URL + '/uploads/produits/' + props.data.image} />
 
-            <Item.Content horizontalAlign='middle'>
+            <Item.Content verticalAlign='middle'>
                 <Item.Header>ID Engin: {props.data.idEngin}</Item.Header>
                 <Item.Description>Gamme: {props.data.gamme}</Item.Description>
                 <Item.Description>Puissance: {props.data.puissance}</Item.Description>
@@ -37,7 +36,8 @@ export default class UserReservation extends Component {
     componentDidMount() {
         fetch("http://localhost:5000/api/catalogue", {method: "GET"})
             .then(result => result.json())
-            .then(data => {console.log('products: ', data); this.setState({products: data, loading: false})})
+ //           .then(data => {console.log('products: ', data); this.setState({products: data, loading: false})})
+            .then(data => {this.setState({products: data, loading: false})})
     }
 
     render() {
@@ -50,7 +50,7 @@ export default class UserReservation extends Component {
             />)
 
     }
-    console.log(this.state.products.length > 0)
+//    console.log(this.state.products.length > 0)
         return (
             <div>
                 <Grid>

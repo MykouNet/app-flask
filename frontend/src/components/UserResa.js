@@ -3,16 +3,17 @@ import axios from 'axios'
 
 import '../App.css';
 import { STATIC_URL } from '../Constantes';
-import Test from './test_input_FC';
+//import Test from './test_input_FC';
 
 function UserResa({match}) {
     useEffect(() => {
         fetchItem();
-    }, []);
+    });
 
     const [itemResa, setItem] = useState({});
     const [value1, setValue1] = useState('');
     const [value2, setValue2] = useState('');
+    let idmat = localStorage.getItem("idMatriculeLS");
 
     const fetchItem = async () => {
         const fetchItem = await fetch(
@@ -49,7 +50,7 @@ function UserResa({match}) {
     console.log("createReservation")
         return axios
         .post('http://localhost:5000/api/reservation', {
-            idMatricule:    "mykou",
+            idMatricule:    idmat,
             idEngin:        match.params.id,
             dateDebut:      value1,
             dateFin:        value2
@@ -57,7 +58,7 @@ function UserResa({match}) {
         .then(res => {
             const data = res.data
             console.log(res.data)
-            if (data.message == 'reservation created.') {  }
+            if (data.message === 'reservation created.') {  }
             return res.data
         })
     }
@@ -70,7 +71,7 @@ function UserResa({match}) {
                 <h1>Item Reservation {match.params.id} {itemResa.nom}</h1>
                 <h1> Gamme : {itemResa.gamme}</h1>
                 <h1>Puissance : {itemResa.puissance}</h1>
-                <img  src={STATIC_URL + '/uploads/produits/' + itemResa.image} />
+                <img  src={STATIC_URL + '/uploads/produits/' + itemResa.image } alt="représentation manquante"/>
                 <br />
                 <span>"Date de début"</span>
                 <br />
