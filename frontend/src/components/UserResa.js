@@ -3,23 +3,22 @@ import axios from 'axios'
 
 import '../App.css';
 import { STATIC_URL } from '../Constantes';
-//import Test from './test_input_FC';
 
 function UserResa({match}) {
-    useEffect(() => {
-        fetchItem();
-    });
 
-    const [itemResa, setItem] = useState({});
     const [value1, setValue1] = useState('');
     const [value2, setValue2] = useState('');
+
+
+    const [itemResa, setItem] = useState({});
+
     let idmat = localStorage.getItem("idMatriculeLS");
 
     const fetchItem = async () => {
-        const fetchItem = await fetch(
+        const fetchItem2 = await fetch(
             `http://localhost:5000/api/catalogue/${match.params.id}`, {method: "GET"}
         )
-        const itemResa = await fetchItem.json();
+        const itemResa = await fetchItem2.json();
         setItem(itemResa);
         console.log("item après fetch",itemResa )
     };
@@ -65,12 +64,13 @@ function UserResa({match}) {
 
     const onChange1 = event => setValue1(event.target.value);
     const onChange2 = event => setValue2(event.target.value);
+    useEffect(() => { fetchItem(); }, [value1, value2] );
 
     return (
         <div>
-                <h1>Item Reservation {match.params.id} {itemResa.nom}</h1>
-                <h1> Gamme : {itemResa.gamme}</h1>
-                <h1>Puissance : {itemResa.puissance}</h1>
+                <h1>Item Reservation : {match.params.id} - {itemResa.nom}</h1>
+                <h3>Gamme : {itemResa.gamme}</h3>
+                <h3>Puissance : {itemResa.puissance}</h3>
                 <img  src={STATIC_URL + '/uploads/produits/' + itemResa.image } alt="représentation manquante"/>
                 <br />
                 <span>"Date de début"</span>

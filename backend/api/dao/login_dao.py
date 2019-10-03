@@ -50,7 +50,7 @@ class LoginDao:
         return login
 
     def createLogin(self, Login):
-        query = 'INSERT INTO utilisateurs (`idMatricule`, `motDePasse`, `fonction`) VALUES (%s, %s, %s)'
+        query = 'INSERT INTO utilisateurs (`idMatricule`, `motDePasse`, `fonction`) VALUES (%s, MD5(%s), %s)'
         mycursor = self.mydb.cursor()
         vals = (Login['idMatricule'], Login['motDePasse'], Login['fonction'])
         mycursor.execute(query, vals)
@@ -92,15 +92,15 @@ class LoginDao:
 
 
     def authentificateLogin(self, id, mdp):
-        query = 'SELECT * FROM utilisateurs WHERE `idMatricule` = %s AND `motDePasse` = %s'
+        query = 'SELECT * FROM utilisateurs WHERE `idMatricule` = %s  AND `motDePasse` = MD5(%s)'
         mycursor = self.mydb.cursor(dictionary=True)
         vals = (id, mdp)
         mycursor.execute(query, vals)
         myresult = mycursor.fetchone()
         mycursor.close()
-        isOk = True
+  #      isOk = True
 
         if myresult is None:
-            isOk = False
-            return isOk
-        return isOk
+            myresult = False
+            return myresult
+        return myresult

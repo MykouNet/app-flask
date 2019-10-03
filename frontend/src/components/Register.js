@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import { register } from './UserFunctions'
+import { register, recupMDP } from './UserFunctions'
 
 class Register extends Component {
     constructor() {
@@ -13,6 +13,9 @@ class Register extends Component {
         this.onChange = this.onChange.bind(this)
         this.onSubmit = this.onSubmit.bind(this)
     }
+    componentDidMount() {
+        recupMDP().then(res => this.setState({motDePasse : res}))
+    }
 
     onChange(e) {
         this.setState({[e.target.name]: e.target.value})
@@ -25,6 +28,7 @@ class Register extends Component {
             motDePasse:  this.state.motDePasse,
             fonction:    this.state.fonction
         }
+        console.log("motDePasse", newUser.motDePasse)
 
         register(newUser).then(res => {
                 this.props.history.push('/register')
@@ -32,6 +36,7 @@ class Register extends Component {
     }
 
     render (){
+    console.log(this.state)
         return(
             <div>
                 <form noValidate onSubmit={this.onSubmit}>
@@ -50,7 +55,7 @@ class Register extends Component {
                             <div className="control-group">
                             <label htmlFor="motDePasse" className="login-field-icon fui-lock"></label>
                             <input type="password" name="motDePasse" value={this.state.motDePasse}
-                            onChange={this.onChange} placeholder="MotDePasse" className="login-field" />
+                            placeholder="MotDePasse" className="login-field" />
                             </div>
 
                             <div className="control-group">

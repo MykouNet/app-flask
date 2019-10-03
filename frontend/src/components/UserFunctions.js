@@ -34,9 +34,10 @@ export const login = user => {
     })
     .then(res => {
         const data = res.data
-        console.log(res.data)
-        if (data.message === 'bien loggué.') {
+        console.log(data)
+        if (data.message !== "id / mdp incorrects.") {
                     console.log("ici")
+            localStorage.setItem("fonction", res.data.fonction)
             localStorage.setItem('usertoken', res.data.token)
         }
         return res.data
@@ -62,3 +63,13 @@ export const login = user => {
 //        console.log(err)
 //    })
  }
+
+export const recupMDP = () => {
+    return axios
+    .get('http://localhost:5000/api/register', {
+    })
+    .then(res => {
+        console.log(res)
+        return res.data
+    })
+}

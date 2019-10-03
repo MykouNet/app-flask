@@ -41,6 +41,16 @@ def create_login_controlleur():
 
     return jsonify({"message": "Le login a bien été créé."})
 
+#Pour tester : Utiliser POSTMAN
+@routesAPIREST.route('/register', methods=['GET'])
+def get_password_controlleur():
+    #Fonctionnel
+    passwordService = PasswordService()
+    password = passwordService.passwordService()
+    print(password)
+    if password is None:
+        return jsonify({ "message": "problème de génération du mot de passe" })
+    return jsonify(password)
 
 # Pour tester : Utiliser POSTMAN
 @routesAPIREST.route('/login/<int:id>', methods=['PUT'])
@@ -76,11 +86,10 @@ def authentificateLogin():
     idMatricule = request.get_json()['idMatricule']
     motDePasse  = request.get_json()['motDePasse']
     loginService = LoginService()
-    isOk = loginService.authentification(idMatricule, motDePasse)
+    myresult = loginService.authentification(idMatricule, motDePasse)
 
-    print(isOk)
-    if not isOk:
+    print(myresult)
+    if not myresult:
         return jsonify({"message" : "id / mdp incorrects."})
     else:
-        return jsonify({"message": "bien loggué."})
-
+        return jsonify({"data": myresult})

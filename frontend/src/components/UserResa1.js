@@ -24,6 +24,7 @@ function UserResa({match}) {
 
     return (
         <div>
+        <form>
             <h1>Item Reservation {match.params.id} {itemResa.nom}</h1>
             <h1> Gamme : {itemResa.gamme}</h1>
             <h1>Puissance : {itemResa.puissance}</h1>
@@ -38,7 +39,8 @@ function UserResa({match}) {
             <input type="date" name="dateFin" value={dateFin}/>
             <br />
             <br />
-            <button onClick={} >Réserver</button>
+            <button onClick={this.fetchItem.bind(this)} >Réserver</button>
+        </frorm>
         </div>
     )
 }

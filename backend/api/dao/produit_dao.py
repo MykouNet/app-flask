@@ -36,25 +36,21 @@ class ProduitDao:
         query = 'SELECT * FROM catalogue WHERE idEngin = {0}'.format(id)
         mycursor = self.mydb.cursor(dictionary=True)
         mycursor.execute(query)
-        myresult = mycursor.fetchall()
+        myresult = mycursor.fetchone()
         mycursor.close()
 
-        listProduits = []
-        for p in myresult:
+        print("Produit : ", myresult)
 
-            print("Produit : ", myresult)
+        if myresult is None:
+            return None
 
-            if myresult is None:
-                return None
-
-            #Creation d'une instance de la classe Produit
-            produit = Produit()
-            produit.idEngin = p['idEngin']
-            produit.nom = p['nom']
-            produit.gamme = p['gamme']
-            produit.puissance = p['puissance']
-            produit.image = p['image']
-            listProduits.append(produit)
+        #Creation d'une instance de la classe Produit
+        produit = Produit()
+        produit.idEngin = myresult['idEngin']
+        produit.nom = myresult['nom']
+        produit.gamme = myresult['gamme']
+        produit.puissance = myresult['puissance']
+        produit.image = myresult['image']
 
         return produit
 

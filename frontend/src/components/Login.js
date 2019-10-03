@@ -61,12 +61,12 @@ class Login extends Component {
         validate(user)
 
         login(user).then(res => {
-            if (res.message === 'bien loggué.') {
-                this.props.history.push('/menu')
+            if (res.message !== "id / mdp incorrects.") {
                 localStorage.setItem("idMatriculeLS", user.idMatricule)
+                localStorage.setItem("fonction", res.data.fonction)
+                this.props.history.push('/menu')
             } else {
                 this.props.history.push('/login')
-
             }
           })
     }
@@ -90,12 +90,12 @@ class Login extends Component {
 
                    <span>{ this.state.messageErreur1 }  </span>
 
-                    <label className="login-field-icon fui-user" for="login-name"></label></div>
+                    <label className="login-field-icon fui-user" htmlFor="login-name"></label></div>
 
                     <div className="control-group">
                                     <input type="password" className="login-field" value={this.state.motDePasse}
                                     onChange={this.onChange} placeholder="password" name="motDePasse" />
-                    <label className="login-field-icon fui-lock" for="login-pass"></label></div>
+                    <label className="login-field-icon fui-lock" htmlFor="login-pass"></label></div>
 
                    <span>{ this.state.messageErreur2 }  </span>
 

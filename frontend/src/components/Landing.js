@@ -45,7 +45,7 @@ function Landing() {
                 >
 
                      {images.map(image => (
-                            <GalleryImage objectFit="contain" src={image} />
+                            <GalleryImage objectFit="contain" src={image} key={images}/>
                       ))}
                 </Gallery>
             </div>

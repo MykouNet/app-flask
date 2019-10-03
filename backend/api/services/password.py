@@ -1,0 +1,1 @@
+PASSWORD = 'P0urM01laV1e'

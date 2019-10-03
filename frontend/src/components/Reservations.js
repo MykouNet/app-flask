@@ -5,18 +5,30 @@ import ReservationPDF from './ReservationPDF'
 import { STATIC_URL } from '../Constantes';
 
 const ShopItem = (props) => {
-console.log(props)
+// console.log(props)
     return (
         <Item>
-            <Item.Image size='small' alt={props.data.image} src={STATIC_URL + '/uploads/produits/' + props.data.image} />
+            <Item.Image size='small' alt={props.data.image}  src={STATIC_URL + '/uploads/produits/' + props.data.image}  />
 
-            <Item.Content horizontalAlign='middle'>
+            <Item.Content verticalAlign='middle'>
                 <Item.Header>ID Reservation : {props.data.idReservation}</Item.Header>
                 <Item.Description>ID Engin: {props.data.idEngin}</Item.Description>
                 <Item.Description>ID Matricule: {props.data.idMatricule}</Item.Description>
-                <Item.Description>Date de réservation: {props.data.dateDebut}</Item.Description>
-                <Item.Description>Date de début: {props.data.dateFin}</Item.Description>
-                <Item.Description>Date de fin: {props.data.dateReservation}</Item.Description>
+                <Item.Description>Date de réservation: {new Intl.DateTimeFormat('fr-FR', {
+                            year: 'numeric',
+                            month: 'long',
+                            day: '2-digit'
+                        }).format(new Date(props.data.dateReservation))}</Item.Description>
+                <Item.Description>Date de début: {new Intl.DateTimeFormat('fr-FR', {
+                            year: 'numeric',
+                            month: 'long',
+                            day: '2-digit'
+                        }).format(new Date(props.data.dateDebut))}</Item.Description>
+                <Item.Description>Date de fin: {new Intl.DateTimeFormat('fr-FR', {
+                            year: 'numeric',
+                            month: 'long',
+                            day: '2-digit'
+                        }).format(new Date(props.data.dateFin))}</Item.Description>
                 <Item.Extra>
                     <Button floated='right'><ReservationPDF data={props.data} /></Button>
                 </Item.Extra>
@@ -30,28 +42,29 @@ export default class Reservation extends Component {
         super(props)
         this.state = {
             loading: true,
-            products: [],
+            resas: [],
         }
     }
 
     componentDidMount() {
         fetch("http://localhost:5000/api/reservation", {method: "GET"})
             .then(result => result.json())
-            .then(data => {console.log('products: ', data); this.setState({products: data, loading: false})})
+   //         .then(data => {console.log('resas: ', data); this.setState({resas: data, loading: false})})
+            .then(data => {this.setState({resas: data, loading: false})})
     }
 
     render() {
     let items = null
     if (!this.state.loading) {
-        items = this.state.products.map(product =>
+        items = this.state.resas.map(resa =>
             <ShopItem
-                data={product}
-                key={product.idReservation}
+                data={resa}
+                key={resa.idReservation}
             />)
 
 
     }
-    console.log(this.state.products.length > 0)
+ //   console.log(this.state.resas.length > 0)
         return (
             <div>
                 <Grid>
