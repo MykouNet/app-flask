@@ -1,28 +1,34 @@
 import smtplib
 
-gmail_user = 'mouradkassa@gmail.com'
-gmail_password = 'S0fteam01' #complète avec ton username et password
 
-sent_from = gmail_user
-to = ['mouradkassa@yahoo.fr']
-subject = 'OMG Super Important Message'
-body = 'Hey, what s up?\n\n- You'
+def EnvoiMail(motDePasse, idMat):
 
-email_text = """\
-From: %s
-To: %s
-Subject: %s
 
-%s
-""" % (sent_from, ", ".join(to), subject, body)
+    gmail_user = 'mouradkassa@gmail.com'
+    gmail_password = 'S0fteam01' #complète avec ton username et password
 
-try:
-    server = smtplib.SMTP_SSL('smtp.gmail.com', 465)
-    server.ehlo()
-    server.login(gmail_user, gmail_password)
-    server.sendmail(sent_from, to, email_text)
-    server.close()
+    sent_from = gmail_user
+    to = ['mouradkassa@yahoo.fr']
+    subject = 'OMG Super Important Message'
+    body = idMat + ", votre MDP : " + motDePasse
 
-    print('Email sent!')
-except:
-    print('Something went wrong...')
+
+    email_text = """\
+    From: %s
+    To: %s
+    Subject: %s
+
+    Votre identifiant : %s
+    
+    """ % (sent_from, ", ".join(to), subject, body)
+
+    try:
+        server = smtplib.SMTP_SSL('smtp.gmail.com', 465)
+        server.ehlo()
+        server.login(gmail_user, gmail_password)
+        server.sendmail(sent_from, to, email_text)
+        server.close()
+
+        print('Email sent!')
+    except:
+        print('Something went wrong...')

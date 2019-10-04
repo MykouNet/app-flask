@@ -5,13 +5,19 @@ import '../App.css';
 import { STATIC_URL } from '../Constantes';
 
 function UserResa({match}) {
-
+// dates en entrée
     const [value1, setValue1] = useState('');
     const [value2, setValue2] = useState('');
+// message à afficher
+    const [displayMessage, setDisplayMessage] = useState(null)
+    let messageKO_disponible = 'l\'engin n\'est pas disponible à cette date'
+    let messageKO_creation = 'problème backend de création de réservation'
+    let messageKO_date = 'date non renseignée'
+    let messageOK = 'la réservation a été effectuée'
 
-
-    const [itemResa, setItem] = useState({});
-
+// data du fetch
+    const [itemResa, setItemresa] = useState({});
+// stockage de l'identifiant de celui qui réserve
     let idmat = localStorage.getItem("idMatriculeLS");
 
     const fetchItem = async () => {
@@ -19,7 +25,7 @@ function UserResa({match}) {
             `http://localhost:5000/api/catalogue/${match.params.id}`, {method: "GET"}
         )
         const itemResa = await fetchItem2.json();
-        setItem(itemResa);
+        setItemresa(itemResa);
         console.log("item après fetch",itemResa )
     };
 
@@ -30,7 +36,10 @@ function UserResa({match}) {
     };
 
     const verifyDisponibility = () => {
-        console.log("verifyDisponibility", value1 )
+        if (!(value1 && value2))
+            return ({status: 'error'},
+                    setDisplayMessage(messageKO_date))
+
         return axios
         .post('http://localhost:5000/api/fairesa', {
             idEngin : match.params.id,
@@ -40,7 +49,13 @@ function UserResa({match}) {
         .then(res => {
             const data = res.data
             console.log(res.data)
-            if (data.message === 'disponible.') { createReservation() }
+            if (data.message === 'disponible.') {
+                createReservation()
+            } else {
+                setDisplayMessage(messageKO_disponible)
+                console.log("verify, passe par la", displayMessage)
+
+            }
             return res.data
         })
     }
@@ -57,15 +72,21 @@ function UserResa({match}) {
         .then(res => {
             const data = res.data
             console.log(res.data)
-            if (data.message === 'reservation created.') {  }
+            if (data.message === 'disponible.') {
+                console.log("verify, passe par la", messageOK)
+                setDisplayMessage(messageOK)
+            } else {
+                setDisplayMessage(messageKO_creation)
+                console.log("verify, passepar la 2", messageKO_creation)
+            }
             return res.data
         })
     }
 
     const onChange1 = event => setValue1(event.target.value);
     const onChange2 = event => setValue2(event.target.value);
-    useEffect(() => { fetchItem(); }, [value1, value2] );
-
+    useEffect(() => { fetchItem(); }, [displayMessage] );
+    console.log('re-render', displayMessage)
     return (
         <div>
                 <h1>Item Reservation : {match.params.id} - {itemResa.nom}</h1>
@@ -81,6 +102,7 @@ function UserResa({match}) {
                 <br />
                 <input type="date" name="dateFin" value={value2} onChange={onChange2} />
                 <br />
+                <p>{displayMessage}</p>
                 <br />
                 <button onClick={handleReservClick}> Réserver </button>
         </div>

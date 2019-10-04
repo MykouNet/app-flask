@@ -14,15 +14,20 @@ export const catalogue = newProduit => {
     })
 }
 
-export const register = newUser => {
+export const register = async newUser => {
+    const { idMatricule, fonction, motDePasse } = newUser
+    console.log(newUser)
+    if (!(idMatricule && fonction))
+        return {status: 'error'}
+    console.log('Je passe')
     return axios
     .post('http://localhost:5000/api/register', {
-        idMatricule : newUser.idMatricule,
-        motDePasse  : newUser.motDePasse,
-        fonction    : newUser.fonction
+        idMatricule,
+        motDePasse,
+        fonction
     })
-    .then(res => {
-        console.log(res)
+    .then(response => {
+        return response
     })
 }
 

@@ -11,7 +11,8 @@ class AjoutEngin extends Component {
             nom:'',
             gamme:'',
             puissance:'',
-            image: ''
+            image: '',
+            submitResult:''
         }
 
         this.onChange = this.onChange.bind(this)
@@ -42,19 +43,33 @@ class AjoutEngin extends Component {
 
         console.log("data : " + nom)
 
+        if (!(nom && gamme && puissance))
+            return  this.setState({
+                        submitResult: 'Un problème est survenu - l\'engin n\'a pas pu être enregistré'
+                    })
+
         return fetch(API_URL + '/ajout',
-      {
+        {
         method: 'POST',
         headers: {
           'Authorization': window.sessionStorage["token"]
         },
         body: data
-      }).then(response => {
+        }).then(response => {
         if (response.status !== 200) {
-          throw new Error(response)
+            throw new Error(response)
         }
-        return response.json();
-      });
+        return  response.json(),
+                this.setState({
+                    idEngin:'',
+                    nom:'',
+                    gamme:'',
+                    puissance:'',
+                    image: '',
+                    submitResult: 'Le nouvel engin a bien été ajouté.'
+                })
+            }
+        );
     }
 
     render (){
@@ -79,6 +94,7 @@ class AjoutEngin extends Component {
                          <div className="control-group">
                             <input id="image" type="file" name="image" onChange={this.onChange} placeholder="image"/>
                         </div>
+                        <p>{this.state.submitResult}</p>
                         <input type="submit" value="Ajouter nouveau produit" className="btn btn-primary btn-large btn-block" />
 
                         </div>

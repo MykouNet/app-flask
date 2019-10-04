@@ -1,23 +1,45 @@
 import React, {Component} from 'react'
 import { register, recupMDP } from './UserFunctions'
-import { Input } from 'reactstrap';
+import axios from 'axios'
 
-class Register extends Component {
+class Reinit extends Component {
     constructor() {
         super()
         this.state = {
             idMatricule:'',
-            motDePasse:'',
-            fonction:'',
+            motDePasse1:'',
+            motDePasse2:'',
             submitResult: ''
         }
-
         this.onChange = this.onChange.bind(this)
         this.onSubmit = this.onSubmit.bind(this)
     }
-    componentDidMount() {
-        recupMDP().then(res => this.setState({motDePasse : res}))
+
+    componentDidMount(id) {
+            return axios
+                get('http://localhost:5000/api/reinit' + id, {
+                        console.log('get')
+                    })
+                    .then(response => {
+                        return response
+                    })
     }
+
+    modifierMDP(id) {
+        return fetch('http://localhost:5000/api/reinit' + id, {
+            method: 'PUT',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(
+            {'motDePasse': this.state.motDePasse1})
+        }).then(response => response.json())
+        .then(data => {
+            this.getNewMDP().then(() => {
+                this.setState({
+                    motDePasse1: this.state.
+                });
+              });
+            })
+          }
 
     onChange(e) {
         this.setState({[e.target.name]: e.target.value})
@@ -30,35 +52,7 @@ class Register extends Component {
             motDePasse:  this.state.motDePasse,
             fonction:    this.state.fonction
         }
- {/*       const validate = (user) => {
-            let errors ={};
-            console.log("user.idMatricule ", user.idMatricule )
 
-            if (user.idMatricule === '') {
-                this.setState({messageErreur1: "Required"});
-                this.setState({isOKidMat:false})
-            }
-            console.log("errors.idMatricule ", user.idMatricule )
-
-            const passwordRegex = /(?=.*[0-9])/;
-
-
-            if (user.motDePasse === ''){
-                this.setState({messageErreur2: "Required"});
-                this.setState({isOKpswd:false})
-            }
-            else if (user.motDePasse.length < 8){
-                this.setState({messageErreur2: "too short"});
-                this.setState({isOKpswd:false})
-            }
-            else if (!passwordRegex.test(user.motDePasse)) {
-                errors.motDePasse = "Invalid password. Must contain one number."
-            }
-            return errors;
-        }
-
-        validate(user)
-*/}
         register(newUser).then(data => {
             if (data.status === 200) {
                 this.setState({
@@ -84,7 +78,7 @@ class Register extends Component {
 
                         <div className="login">
                         <div className="login-screen">
-                        <div className="app-title"><h1>Ajoutez un nouvel utilisateur</h1></div>
+                        <div className="app-title"><h1>Ré-initialisez votre mot de passe</h1></div>
                         <div className="login-form">
 
                             <div className="control-group">
@@ -99,16 +93,8 @@ class Register extends Component {
                             placeholder="MotDePasse" className="login-field" />
                             </div>
 
-                            <div className="control-group">
-                            <label htmlFor="fonction" className="login-field-icon fui-lock"></label>
-                            <Input type="select" name="fonction" value={this.state.value}
-                            onChange={this.onChange} placeholder="fonction" className="login-field-select">
-                                <option value="Gestionnaire" className="login-field-option">Gestionnaire</option>
-                                <option value="Utilisateur" className="login-field-option">Utilisateur</option>
-                            </Input>
-                            </div>
                             <p>{this.state.submitResult}</p>
-                            <input type="submit" value="Register" className="btn btn-primary btn-large btn-block" />
+                            <input type="submit" value="Ré-initialisation" className="btn btn-primary btn-large btn-block" />
                         </div>
                         </div>
                         </div>
@@ -118,4 +104,4 @@ class Register extends Component {
     }
 }
 
-export default Register
+export default Reinit

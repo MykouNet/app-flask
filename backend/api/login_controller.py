@@ -34,12 +34,17 @@ def create_login_controlleur():
     # Fonctionnel
     loginService = LoginService()
     login = request.json
+    PSWD = login['motDePasse']
+    idMat = login['idMatricule']
+
     isOk = loginService.createLogin(login)
 
     if not isOk:
         return jsonify({"message": "Problème de création du login."})
 
-    return jsonify({"message": "Le login a bien été créé."})
+    return  (jsonify({"message": "Le login a bien été créé."}),
+            EnvoiMail(PSWD, idMat))
+
 
 #Pour tester : Utiliser POSTMAN
 @routesAPIREST.route('/register', methods=['GET'])
@@ -53,8 +58,8 @@ def get_password_controlleur():
     return jsonify(password)
 
 # Pour tester : Utiliser POSTMAN
-@routesAPIREST.route('/login/<int:id>', methods=['PUT'])
-def update_login_controlleur(idMatricule):
+@routesAPIREST.route('/reinit/<int:id>', methods=['PUT'])
+def update_mdp_controlleur(idMatricule):
     # Mettre à jour le login dans la base de données
     # Fonctionnel
     loginService = LoginService()
@@ -63,9 +68,9 @@ def update_login_controlleur(idMatricule):
     isOk = loginService.updateLogin(login)
 
     if not isOk:
-        return jsonify({"message": "Le login n'existe pas ou n'a pas besoin d'être à jour."})
+        return jsonify({"message": "Le MDP n'existe pas ou n'a pas besoin d'être mis à jour."})
 
-    return jsonify({"message": "Le login a bien été mis à jour."})
+    return jsonify({"message": "Le MDP a bien été mis à jour."})
 
 
 # Pour tester : Utiliser POSTMAN

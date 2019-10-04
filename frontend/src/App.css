@@ -78,3 +78,23 @@ margin-top: 12px;
  flex-direction: row;
  justify-content: space-between;
 }
+
+.login-field-select {
+border: 2px solid transparent;
+background: #ECF0F1;
+color: #444;
+font-size: 16px;
+line-height: 25px;
+padding: 10px 0;
+text-decoration: none;
+text-shadow: none;
+border-radius: 3px;
+box-shadow: none;
+transition: 0.25s;
+display: flex;
+align-content: center;
+width: 250px;
+margin: 0 auto;
+text-align: center;
+text-align-last: center;
+}

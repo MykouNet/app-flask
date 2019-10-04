@@ -13,7 +13,8 @@ class Login extends Component {
             isOKpswd: true,
             messageErreur1:'',
             messageErreur2:'',
-            valueHref: ""
+            valueHref: "",
+            submitResult: ''
         }
 
         this.onChange = this.onChange.bind(this)
@@ -31,45 +32,18 @@ class Login extends Component {
             motDePasse:  this.state.motDePasse
         }
 
-        const validate = (user) => {
-            let errors ={};
-            console.log("user.idMatricule ", user.idMatricule )
-
-            if (user.idMatricule === '') {
-                this.setState({messageErreur1: "Required"});
-                this.setState({isOKidMat:false})
-            }
-            console.log("errors.idMatricule ", user.idMatricule )
-
-            const passwordRegex = /(?=.*[0-9])/;
-
-
-            if (user.motDePasse === ''){
-                this.setState({messageErreur2: "Required"});
-                this.setState({isOKpswd:false})
-            }
-            else if (user.motDePasse.length < 8){
-                this.setState({messageErreur2: "too short"});
-                this.setState({isOKpswd:false})
-            }
-            else if (!passwordRegex.test(user.motDePasse)) {
-                errors.motDePasse = "Invalid password. Must contain one number."
-            }
-            return errors;
-        }
-
-        validate(user)
-
         login(user).then(res => {
             if (res.message !== "id / mdp incorrects.") {
                 localStorage.setItem("idMatriculeLS", user.idMatricule)
                 localStorage.setItem("fonction", res.data.fonction)
                 this.props.history.push('/menu')
             } else {
-                this.props.history.push('/login')
+                this.setState({
+                        submitResult: 'id / mdp incorrects.'})
             }
           })
     }
+
 
     render (){
         return(
@@ -99,10 +73,10 @@ class Login extends Component {
 
                    <span>{ this.state.messageErreur2 }  </span>
 
+
+                    <p>{this.state.submitResult}</p>
+
                     <input type="submit" value="Log in" className="btn btn-primary btn-large btn-block" />
-
-
-
                     </div>
                     </div>
                 </div>
