@@ -10,4 +10,3 @@ from .produit_controller import *
 from .login_controller import *
 from .reservation_controller import *
 
-from .mysql import *

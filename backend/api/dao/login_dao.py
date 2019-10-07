@@ -64,9 +64,9 @@ class LoginDao:
         return rows_added > 0
 
     def updateLogin(self, Login):
-        query = 'UPDATE utilisateurs SET idMatricule = %s, motDePasse = %s, fonction = %s WHERE idMatricule = %s'
+        query = 'UPDATE utilisateurs SET motDePasse = %s WHERE idMatricule = %s'
         mycursor = self.mydb.cursor()
-        vals = (Login['idMatricule'], Login['motDePasse'], Login['fonction'])
+        vals = (Login['idMatricule'], Login['motDePasse'])
         mycursor.execute(query, vals)
 
         self.mydb.commit()

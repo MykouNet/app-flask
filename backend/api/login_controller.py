@@ -58,22 +58,6 @@ def get_password_controlleur():
     return jsonify(password)
 
 # Pour tester : Utiliser POSTMAN
-@routesAPIREST.route('/reinit/<int:id>', methods=['PUT'])
-def update_mdp_controlleur(idMatricule):
-    # Mettre à jour le login dans la base de données
-    # Fonctionnel
-    loginService = LoginService()
-    login = request.json
-    login['idMatricule'] = idMatricule
-    isOk = loginService.updateLogin(login)
-
-    if not isOk:
-        return jsonify({"message": "Le MDP n'existe pas ou n'a pas besoin d'être mis à jour."})
-
-    return jsonify({"message": "Le MDP a bien été mis à jour."})
-
-
-# Pour tester : Utiliser POSTMAN
 @routesAPIREST.route('/login/<int:id>', methods=['DELETE'])
 def delete_login_controlleur(idMatricule):
     # Fonctionnel
@@ -98,3 +82,32 @@ def authentificateLogin():
         return jsonify({"message" : "id / mdp incorrects."})
     else:
         return jsonify({"data": myresult})
+
+
+@routesAPIREST.route('/passinitialisation', methods=['GET', 'POST'])
+def authentificateReinit():
+        print("passage authentif")
+        idMatricule = request.get_json()['idMatricule']
+        motDePasse = request.get_json()['motDePasse']
+        loginService = LoginService()
+        myresult = loginService.authentification(idMatricule, motDePasse)
+
+        print(myresult)
+        if not myresult:
+            return jsonify({"message": "id / mdp incorrects."})
+        else:
+            return jsonify({"data": myresult})
+
+@routesAPIREST.route('/passinitialisation/<string:idMatricule>', methods=['PUT'])
+def majMDPReinit():
+        print("passage majMDPReinit")
+        loginService = LoginService()
+        login = request.json
+        login['idMatricule'] = login.idMatricule
+        login['motDePasse'] = login.motDePasse
+        isOk = loginService.updateLogin(login)
+
+        if not isOk:
+            return jsonify({"message": "Le MDP n'existe pas ou n'a pas besoin d'être mis à jour."})
+
+        return jsonify({"message": "Le MDP a bien été mis à jour."})
