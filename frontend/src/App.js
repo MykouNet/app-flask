@@ -11,7 +11,7 @@ import AjoutEngin from './components/AjoutEngin'
 import Reservations from './components/Reservations'
 import UserReservation from './components/UserReservation'
 import UserResa from './components/UserResa'
-//import Reinit from './components/Reinit'
+import PassReinitialisation from './components/PassReinitialisation'
 
 
 /*
@@ -27,6 +27,7 @@ class App extends Component {
             <div className="App">
                 <Navbar />
                 <Route exact path="/" component={Landing} />
+                <Route exact path="/passinitialisation" component={PassReinitialisation} />
     {/*            <Route exact path="/reinitMDP/:id" component={Reinit} />         */}
                 <div className="Container">
                     <Route exact path="/register" component={Register} />

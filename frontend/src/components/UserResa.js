@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 
-import '../App.css';
+//import '../App.css';
+import style from './userresa.module.css'
 import { STATIC_URL } from '../Constantes';
 
 function UserResa({match}) {
@@ -87,23 +88,21 @@ function UserResa({match}) {
     const onChange2 = event => setValue2(event.target.value);
     useEffect(() => { fetchItem(); }, [displayMessage] );
     console.log('re-render', displayMessage)
+
     return (
-        <div>
+        <div className={style.usersa}>
                 <h1>Item Reservation : {match.params.id} - {itemResa.nom}</h1>
-                <h3>Gamme : {itemResa.gamme}</h3>
-                <h3>Puissance : {itemResa.puissance}</h3>
+                <h6>Gamme : {itemResa.gamme}</h6>
+                <h6>Puissance : {itemResa.puissance}</h6>
                 <img  src={STATIC_URL + '/uploads/produits/' + itemResa.image } alt="représentation manquante"/>
                 <br />
-                <span>"Date de début"</span>
-                <br />
-                <input type="date" name="dateDebut" value={value1} onChange={onChange1} />
-                <br />
-                <span>"Date de fin"</span>
-                <br />
-                <input type="date" name="dateFin" value={value2} onChange={onChange2} />
-                <br />
+                <label>Date de début
+                    <input type="date" name="dateDebut" value={value1} onChange={onChange1} />
+                </label>
+                <label>Date de fin
+                    <input type="date" name="dateFin" value={value2} onChange={onChange2} />
+                </label>
                 <p>{displayMessage}</p>
-                <br />
                 <button onClick={handleReservClick}> Réserver </button>
         </div>
     )

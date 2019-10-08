@@ -3,6 +3,7 @@ import { Button, Item, Grid } from 'semantic-ui-react'
 
 import ReservationPDF from './ReservationPDF'
 import { STATIC_URL } from '../Constantes';
+import style from './reservation.module.css'
 
 const ShopItem = (props) => {
 // console.log(props)
@@ -12,19 +13,19 @@ const ShopItem = (props) => {
 
             <Item.Content verticalAlign='middle'>
                 <Item.Header>ID Reservation : {props.data.idReservation}</Item.Header>
-                <Item.Description>ID Engin: {props.data.idEngin}</Item.Description>
-                <Item.Description>ID Matricule: {props.data.idMatricule}</Item.Description>
-                <Item.Description>Date de réservation: {new Intl.DateTimeFormat('fr-FR', {
+                <Item.Description className={style.itemDesc}>ID Engin: {props.data.idEngin}</Item.Description>
+                <Item.Description className={style.itemDesc}>ID Matricule: {props.data.idMatricule}</Item.Description>
+                <Item.Description className={style.itemDesc}>Date de réservation: {new Intl.DateTimeFormat('fr-FR', {
                             year: 'numeric',
                             month: 'long',
                             day: '2-digit'
                         }).format(new Date(props.data.dateReservation))}</Item.Description>
-                <Item.Description>Date de début: {new Intl.DateTimeFormat('fr-FR', {
+                <Item.Description className={style.itemDesc}>Date de début: {new Intl.DateTimeFormat('fr-FR', {
                             year: 'numeric',
                             month: 'long',
                             day: '2-digit'
                         }).format(new Date(props.data.dateDebut))}</Item.Description>
-                <Item.Description>Date de fin: {new Intl.DateTimeFormat('fr-FR', {
+                <Item.Description className={style.itemDesc}>Date de fin: {new Intl.DateTimeFormat('fr-FR', {
                             year: 'numeric',
                             month: 'long',
                             day: '2-digit'
@@ -61,14 +62,12 @@ export default class Reservation extends Component {
                 data={resa}
                 key={resa.idReservation}
             />)
-
-
     }
  //   console.log(this.state.resas.length > 0)
         return (
             <div>
-                <Grid>
-                    <Grid.Column width={16}>
+                <Grid centered>
+                    <Grid.Column width={12}>
                         <Item.Group relaxed>
                             {items}
                         </Item.Group>

@@ -28,7 +28,7 @@ def list_reservations_controlleur():
 
 @routesAPIREST.route('/fairesa', methods=['POST'])
 def verifyDisponibility():
-    print("passage verifyDisponibility")
+#    print("passage verifyDisponibility")
     idEngin  = request.get_json()['idEngin']
     dateDebut  = request.get_json()['dateDebut']
     dateFin  = request.get_json()['dateFin']
@@ -37,7 +37,7 @@ def verifyDisponibility():
 
     isOk = reservationService.verifyReservation(idEngin, dateDebut, dateFin)
 
-    print(isOk)
+#    print(isOk)
     if not isOk:
         return jsonify({"message" : "non disponible"})
     else:
@@ -46,7 +46,7 @@ def verifyDisponibility():
 
 @routesAPIREST.route('/reservation', methods=['POST'])
 def createReservation():
-    print("passage createReservation")
+#    print("passage createReservation")
     idMatricule     = request.get_json()['idMatricule']
     idEngin         = int(request.get_json()['idEngin'])
     dateDebut       = request.get_json()['dateDebut']
@@ -56,7 +56,7 @@ def createReservation():
 
     isOk = reservationService.createReservation(idMatricule, idEngin, dateDebut, dateFin)
 
-    print(isOk)
+#    print(isOk)
     if not isOk:
         return jsonify({"message" : "non disponible"})
     else:

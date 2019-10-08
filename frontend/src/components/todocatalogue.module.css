@@ -1,4 +1,4 @@
-.itemDesc {
-    font-size: 0.8rem !important;
-    margin-top: 0 !important;
+.titreH2 {
+    display: flex;
+    justify-content: center;
 }

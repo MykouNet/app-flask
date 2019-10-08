@@ -41,7 +41,7 @@ class Login extends Component {
                 this.setState({
                         submitResult: 'id / mdp incorrects.'})
             }
-          })
+        })
     }
 
 

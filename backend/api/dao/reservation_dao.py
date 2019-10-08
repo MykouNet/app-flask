@@ -17,10 +17,10 @@ class ReservationDao:
         mycursor.close()
 
         listReservations = []
-        print("Liste des résultats : ", myresults)
+#       print("Liste des résultats : ", myresults)
 
         for p in myresults:
-            print("reservation : ", p)
+#            print("reservation : ", p)
 
             # Creation d'une instance de la classe Produit
             reservation = Reservation()
@@ -53,7 +53,7 @@ class ReservationDao:
 
     def createReservation(self, idMatricule, idEngin, dateDebut, dateFin):
         dateR = datetime.date.today()
-        print(dateR)
+#        print(dateR)
         query = 'INSERT INTO reservation (`idMatricule`, `idEngin`, `dateDebut`, `dateFin`, `dateReservation`) VALUES (%s, %s, %s, %s, %s)'
         vals = (idMatricule, idEngin, dateDebut, dateFin, dateR)
         mycursor = self.mydb.cursor()
@@ -63,6 +63,6 @@ class ReservationDao:
         rows_added = mycursor.rowcount
         mycursor.close()
 
-        print(rows_added, "record(s) added")
+#        print(rows_added, "record(s) added")
 
         return rows_added > 0

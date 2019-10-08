@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import { Link, withRouter } from 'react-router-dom'
 /*import jsonwebtoken_decode from 'jsonwebtoken'*/
+import style from './navbar.module.css'
 
 class Navbar extends Component {
   constructor(props) {
@@ -25,7 +26,7 @@ renvoie de 2 possibilités d'embranchements, les objets apparaissant sur la page
     render() {
 
         const loginRegLink = (
-            <ul className="navbar-nav">
+            <ul className={style.navbar}>
                 <li className="nav-item">
                     <Link className='nav-link' to="/login">Login</Link>
                 </li>
@@ -33,7 +34,7 @@ renvoie de 2 possibilités d'embranchements, les objets apparaissant sur la page
         )
 
         const userLinkGestionnaire = (
-            <ul className="navbar-nav" >
+            <ul className={style.navbar} >
                 <li className="nav-item">
                     <Link className='nav-link' to="/ajout">Ajout Engin</Link>
                 </li>
@@ -46,19 +47,19 @@ renvoie de 2 possibilités d'embranchements, les objets apparaissant sur la page
                 <li className="nav-item">
                     <Link className='nav-link' to="/reservation">Réservations PDF</Link>
                 </li>
-                <li className="nav-item">
-                    <a href="dummy" onClick={this.logOut.bind(this)} className='nav-link' >Logout</a>
+                <li>
+                    <a href="dummy" onClick={this.logOut.bind(this)} className={style.navLogout} >Logout</a>
                 </li>
             </ul>
         )
 
         const userLinkUtilisateur = (
-            <ul className="navbar-nav" >
+            <ul className={style.navbar} >
                 <li className="nav-item">
                     <Link className='nav-link' to="/fairesa">User Réservation</Link>
                 </li>
                 <li className="nav-item">
-                    <a href="dummy" onClick={this.logOut.bind(this)} className='nav-link' >Logout</a>
+                    <a href="dummy" onClick={this.logOut.bind(this)} className={style.navLogout}  >Logout</a>
                 </li>
             </ul>
         )
@@ -69,7 +70,7 @@ embranchement si loggué, on va vers profile, si pas loggué on va vers Login/Re
 */
         return (
             <nav>
-                <Link to='/'>Home</Link>
+                <Link className={style.home} to='/'>Home</Link>
 
                 {localStorage.usertoken ?
                     localStorage.fonction === 'Gestionnaire' ?

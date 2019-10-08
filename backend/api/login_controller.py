@@ -52,7 +52,7 @@ def get_password_controlleur():
     #Fonctionnel
     passwordService = PasswordService()
     password = passwordService.passwordService()
-    print(password)
+#    print(password)
     if password is None:
         return jsonify({ "message": "problème de génération du mot de passe" })
     return jsonify(password)
@@ -71,13 +71,13 @@ def delete_login_controlleur(idMatricule):
 
 @routesAPIREST.route('/login', methods=['GET', 'POST'])
 def authentificateLogin():
-    print("passage authentif")
+#    print("passage authentif")
     idMatricule = request.get_json()['idMatricule']
     motDePasse  = request.get_json()['motDePasse']
     loginService = LoginService()
     myresult = loginService.authentification(idMatricule, motDePasse)
 
-    print(myresult)
+#    print(myresult)
     if not myresult:
         return jsonify({"message" : "id / mdp incorrects."})
     else:
@@ -92,19 +92,17 @@ def authentificateReinit():
         loginService = LoginService()
         myresult = loginService.authentification(idMatricule, motDePasse)
 
-        print(myresult)
+#        print(myresult)
         if not myresult:
             return jsonify({"message": "id / mdp incorrects."})
         else:
             return jsonify({"data": myresult})
 
 @routesAPIREST.route('/passinitialisation/<string:idMatricule>', methods=['PUT'])
-def majMDPReinit():
-        print("passage majMDPReinit")
+def majMDPReinit(idMatricule):
+#        print("passage majMDPReinit", idMatricule)
         loginService = LoginService()
         login = request.json
-        login['idMatricule'] = login.idMatricule
-        login['motDePasse'] = login.motDePasse
         isOk = loginService.updateLogin(login)
 
         if not isOk:

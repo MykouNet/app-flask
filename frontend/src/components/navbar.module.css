@@ -1,0 +1,26 @@
+.navbar {
+    display: flex;
+    margin: 0;
+    padding-left: 0;
+    border: 1px solid rgba(219,219, 219, 0.45);
+}
+
+.navbar li {
+    list-style-type: none;
+    padding: .25rem;
+    border-right: 1px solid rgba(219,219, 219,0.45);
+}
+
+.navbar li:hover {
+    background-color: #f0f0f0;
+}
+
+.navbar > li:last-child {
+    margin-left: auto;
+    border-left: 1px solid rgba(219,219, 219,0.45);
+}
+
+.home {
+    display: flex;
+    justify-content: center;
+}

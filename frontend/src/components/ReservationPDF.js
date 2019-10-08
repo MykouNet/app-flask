@@ -43,7 +43,7 @@ const MyDocument = (props) => {
                             month: 'long',
                             day: '2-digit'
                         }).format(new Date(props.dateReservation))}</Text></Label>
-                    <Image src={STATIC_URL + '/uploads/produits/' + props.image} />
+                       <Image src={STATIC_URL + '/uploads/produits/' + props.image} />
                 </View>
             </Page>
         </Document>

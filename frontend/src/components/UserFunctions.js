@@ -78,3 +78,22 @@ export const recupMDP = () => {
         return res.data
     })
 }
+
+export const reinit = user => {
+    return axios
+    .post('http://localhost:5000/api/passinitialisation', {
+        idMatricule:    user.idMatricule,
+        motDePasse:     user.motDePasse
+    })
+    .then(res => {
+        const data = res.data
+        console.log(data)
+        if (data.message !== "id / mdp incorrects.") {
+                    console.log("ici")
+        }
+        return res.data
+    })
+    .catch(err => {
+        console.log(err)
+    })
+ }

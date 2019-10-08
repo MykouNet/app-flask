@@ -18,7 +18,7 @@ def list_produits_controlleur():
     #Fonctionnel
     produitService = ProduitService()
     listProduits = produitService.getListProduits()
-    print( "passage ")
+#    print( "passage ")
     listProduitsJSON = []
 
     for produit in listProduits:
@@ -29,7 +29,7 @@ def list_produits_controlleur():
         p['puissance'] = produit.puissance
         p['image'] = produit.image
         listProduitsJSON.append(p)
-        print(listProduitsJSON)
+ #       print(listProduitsJSON)
     return jsonify(listProduitsJSON)
 
 #Pour tester : Utiliser POSTMAN
@@ -57,13 +57,13 @@ def get_produit_controlleur(id):
 def update_produit_controlleur(id): 
     #Mettre à jour le produit dans la base de données
     #Fonctionnel
-    print(id)
+#    print(id)
     produitService = ProduitService()
     produit = request.json
-    print ("json :", produit )
+#    print ("json :", produit )
     produit['idEngin'] = id
     isOk = produitService.updateProduit(produit)
-    print (isOk)
+#    print (isOk)
     if not isOk:
         return jsonify({ "message": "Le produit n'existe pas ou n'a pas besoin d'être à jour." })
 
@@ -94,7 +94,7 @@ def create_catalogue_controlleur():
 
     ##Code traitant la récupération en FormData les données
     nom_produit = request.form.get('nom')
-    print("nom produit ", nom_produit)
+#    print("nom produit ", nom_produit)
     gamme_produit = request.form.get('gamme')
     puissance_produit = request.form.get('puissance')
 
@@ -120,7 +120,7 @@ def create_catalogue_controlleur():
 
         destination_filename = os.path.join(uploads_dir_produits, filename_final)
         image_produit.save(destination_filename)
-        print("Filename upload : ", filename_final)
+#        print("Filename upload : ", filename_final)
 
         produit['image'] = filename_final
 

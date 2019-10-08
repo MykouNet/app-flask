@@ -1,21 +1,15 @@
-.navbar {
-    display: flex;
-    margin: 0;
-    padding-left: 0;
-    border: 1px solid rgba(219,219, 219, 0.45);
+.usersa {
+    text-align: center;
 }
 
-.navbar li {
-    list-style-type: none;
-    padding: .25rem;
-    border-right: 1px solid rgba(219,219, 219,0.45);
+.usersa label {
+    display: inline-flex;
+    flex-direction: column;
 }
 
-.navbar li:hover {
-    background-color: #f0f0f0;
+.usersa label:last-of-type {
+    margin-left: 20px;
 }
 
-.navbar > li:last-child {
-    margin-left: auto;
-    border-left: 1px solid rgba(219,219, 219,0.45);
-}
+
+

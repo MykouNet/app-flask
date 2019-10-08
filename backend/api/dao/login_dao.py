@@ -15,10 +15,10 @@ class LoginDao:
         mycursor.close()
 
         listLogins = []
-        print("Liste des résultats : ", myresults)
+#        print("Liste des résultats : ", myresults)
 
         for p in myresults:
-            print("Login : ", p)
+#            print("Login : ", p)
 
             # Creation d'une instance de la classe Login
             login = Login()
@@ -36,7 +36,7 @@ class LoginDao:
         myresult = mycursor.fetchone()
         mycursor.close()
 
-        print("Login : ", myresult)
+#        print("Login : ", myresult)
 
         if myresult is None:
             return None
@@ -59,21 +59,23 @@ class LoginDao:
         rows_added = mycursor.rowcount
         mycursor.close()
 
-        print(rows_added, "record(s) added")
+#        print(rows_added, "record(s) added")
 
         return rows_added > 0
 
     def updateLogin(self, Login):
-        query = 'UPDATE utilisateurs SET motDePasse = %s WHERE idMatricule = %s'
+        idmat = Login['idMatricule']
+        mdp = Login['motDePasse']
+        query = 'UPDATE utilisateurs SET motDePasse = MD5(%s) WHERE idMatricule = %s'
         mycursor = self.mydb.cursor()
-        vals = (Login['idMatricule'], Login['motDePasse'])
+        vals = (mdp, idmat)
         mycursor.execute(query, vals)
 
         self.mydb.commit()
         rows_updated = mycursor.rowcount
         mycursor.close()
 
-        print(rows_updated, "record(s) updated")
+#        print(rows_updated, "record(s) updated")
 
         return rows_updated > 0
 
@@ -86,7 +88,7 @@ class LoginDao:
         rows_deleted = mycursor.rowcount
         mycursor.close()
 
-        print(rows_deleted, "record(s) deleted")
+#        print(rows_deleted, "record(s) deleted")
 
         return rows_deleted > 0
 

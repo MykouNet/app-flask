@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
+import style from './todocatalogue.module.css'
 
 const SERVER_URL = 'http://localhost:5000'
 const API_URL = SERVER_URL + '/api'
 export const STATIC_URL = SERVER_URL + '/static'
+
 
 
 class ToDoCatalogue extends Component {
@@ -169,7 +171,7 @@ class ToDoCatalogue extends Component {
             </form>
         </div>
 
-        <h2>Liste des produits</h2>
+        <h2 className={style.titreH2}>Liste des produits</h2>
             <center>
                 <table border="1">
                     {/* en-tête tableau */}

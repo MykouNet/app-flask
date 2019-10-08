@@ -53,8 +53,8 @@ export default class UserReservation extends Component {
 //    console.log(this.state.products.length > 0)
         return (
             <div>
-                <Grid>
-                    <Grid.Column width={16}>
+                <Grid centered>
+                    <Grid.Column width={12}>
                         <Item.Group relaxed>
                             {items}
                         </Item.Group>

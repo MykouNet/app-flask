@@ -1,15 +1,4 @@
-.usersa {
-    text-align: center;
+.itemDesc {
+    font-size: 0.8rem !important;
+    margin-top: 0 !important;
 }
-
-.usersa label {
-    display: inline-flex;
-    flex-direction: column;
-}
-
-.usersa label:last-of-type {
-    margin-left: 20px;
-}
-
-
-

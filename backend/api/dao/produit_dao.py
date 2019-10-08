@@ -18,7 +18,7 @@ class ProduitDao:
         print("Liste des résultats : ", myresults)
 
         for p in myresults:
-            print("Produit : ", p)
+#           print("Produit : ", p)
 
             #Creation d'une instance de la classe Produit
             produit = Produit()
@@ -39,7 +39,7 @@ class ProduitDao:
         myresult = mycursor.fetchone()
         mycursor.close()
 
-        print("Produit : ", myresult)
+#        print("Produit : ", myresult)
 
         if myresult is None:
             return None
@@ -64,12 +64,12 @@ class ProduitDao:
         rows_added = mycursor.rowcount
         mycursor.close()
 
-        print(rows_added, "record(s) added")
+#        print(rows_added, "record(s) added")
 
         return rows_added > 0
 
     def updateProduit(self, produit):
-        print( "début updated")
+#        print( "début updated")
         query = 'UPDATE catalogue SET nom = %s, gamme = %s, puissance = %s, image = %s WHERE idEngin = %s'
         mycursor = self.mydb.cursor()
         vals = ( produit['nom'], produit['gamme'], produit['puissance'], produit['image'], produit['idEngin'] )
@@ -79,7 +79,7 @@ class ProduitDao:
         rows_updated = mycursor.rowcount
         mycursor.close()
 
-        print(rows_updated, "record(s) updated")
+#        print(rows_updated, "record(s) updated")
 
         return rows_updated > 0
 
@@ -92,6 +92,6 @@ class ProduitDao:
         rows_deleted = mycursor.rowcount
         mycursor.close()
 
-        print(rows_deleted, "record(s) deleted")
+#        print(rows_deleted, "record(s) deleted")
 
         return rows_deleted > 0
