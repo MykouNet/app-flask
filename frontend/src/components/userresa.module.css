@@ -1,0 +1,15 @@
+.usersa {
+    text-align: center;
+}
+
+.usersa label {
+    display: inline-flex;
+    flex-direction: column;
+}
+
+.usersa label:last-of-type {
+    margin-left: 20px;
+}
+
+
+

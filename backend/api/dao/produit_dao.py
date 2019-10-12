@@ -11,8 +11,7 @@ class ProduitDao:
         mycursor = self.mydb.cursor(dictionary=True)
         mycursor.execute(query)
         myresults = mycursor.fetchall()
-        
-        self.mydb.commit()
+
         mycursor.close()
 
         listProduits = []
@@ -29,7 +28,6 @@ class ProduitDao:
             produit.puissance = p['puissance']
             produit.image = p['image']
             listProduits.append(produit)
-            print(produit)
 
         return listProduits
 
@@ -39,8 +37,6 @@ class ProduitDao:
         mycursor = self.mydb.cursor(dictionary=True)
         mycursor.execute(query)
         myresult = mycursor.fetchone()
-
-        self.mydb.commit()
         mycursor.close()
 
         print("Produit : ", myresult)
@@ -50,7 +46,7 @@ class ProduitDao:
 
         #Creation d'une instance de la classe Produit
         produit = Produit()
-        produit.id = myresult['idEngin']
+        produit.idEngin = myresult['idEngin']
         produit.nom = myresult['nom']
         produit.gamme = myresult['gamme']
         produit.puissance = myresult['puissance']
@@ -63,7 +59,7 @@ class ProduitDao:
         mycursor = self.mydb.cursor()
         vals = (produit['nom'], produit['gamme'], produit['puissance'], produit['image'])
         mycursor.execute(query, vals)
-        
+
         self.mydb.commit()
         rows_added = mycursor.rowcount
         mycursor.close()
@@ -78,7 +74,7 @@ class ProduitDao:
         mycursor = self.mydb.cursor()
         vals = ( produit['nom'], produit['gamme'], produit['puissance'], produit['image'], produit['idEngin'] )
         mycursor.execute(query, vals)
-        
+
         self.mydb.commit()
         rows_updated = mycursor.rowcount
         mycursor.close()

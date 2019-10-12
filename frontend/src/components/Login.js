@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+
 import { login } from './UserFunctions'
 import '../App.css'
 
@@ -7,7 +8,13 @@ class Login extends Component {
         super()
         this.state = {
             idMatricule:'',
-            motDePasse:''
+            motDePasse:'',
+            isOKidMat: true,
+            isOKpswd: true,
+            messageErreur1:'',
+            messageErreur2:'',
+            valueHref: "",
+            submitResult: ''
         }
 
         this.onChange = this.onChange.bind(this)
@@ -26,39 +33,50 @@ class Login extends Component {
         }
 
         login(user).then(res => {
-            if (res.message === 'bien loggué.') {
+            if (res.message !== "id / mdp incorrects.") {
+                localStorage.setItem("idMatriculeLS", user.idMatricule)
+                localStorage.setItem("fonction", res.data.fonction)
                 this.props.history.push('/menu')
             } else {
-                this.props.history.push('/login')
+                this.setState({
+                        submitResult: 'id / mdp incorrects.'})
             }
-          })
+        })
     }
+
 
     render (){
         return(
 
-            <form onSubmit={this.onSubmit} >
+            <form onSubmit={this.onSubmit} className="body">
                 <div className="login">
 
-                    <div class="login-screen">
+                    <div className="login-screen">
 
-                    <div class="app-title"><h1>Login</h1></div>
+                    <div className="app-title"><h1>Login</h1></div>
 
-                    <div class="login-form">
+                    <div className="login-form">
 
-                    <div class="control-group">
-                                    <input type="text" class="login-field" value={this.state.idMatricule}
+                    <div className="control-group">
+                                    <input type="text" className="login-field" value={this.state.idMatricule}
                                     onChange={this.onChange} placeholder="username" name="idMatricule"
                                      />
-                    <label class="login-field-icon fui-user" for="login-name"></label></div>
 
-                    <div class="control-group">
-                                    <input type="password" class="login-field" value={this.state.motDePasse}
+                   <span>{ this.state.messageErreur1 }  </span>
+
+                    <label className="login-field-icon fui-user" htmlFor="login-name"></label></div>
+
+                    <div className="control-group">
+                                    <input type="password" className="login-field" value={this.state.motDePasse}
                                     onChange={this.onChange} placeholder="password" name="motDePasse" />
-                    <label class="login-field-icon fui-lock" for="login-pass"></label></div>
+                    <label className="login-field-icon fui-lock" htmlFor="login-pass"></label></div>
 
-                    <input type="submit" value="Log in" class="btn btn-primary btn-large btn-block" />
+                   <span>{ this.state.messageErreur2 }  </span>
 
+
+                    <p>{this.state.submitResult}</p>
+
+                    <input type="submit" value="Log in" className="btn btn-primary btn-large btn-block" />
                     </div>
                     </div>
                 </div>
@@ -68,3 +86,6 @@ class Login extends Component {
 }
 
 export default Login
+
+// si c'était à refaire
+// https://scotch.io/tutorials/validating-a-login-form-with-react#toc-adding-validation-messages-logic

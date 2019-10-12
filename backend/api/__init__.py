@@ -8,4 +8,6 @@ routesAPIREST = Blueprint('routesAPIREST', __name__, url_prefix='/api',
 
 from .produit_controller import *
 from .login_controller import *
+from .reservation_controller import *
+
 from .mysql import *

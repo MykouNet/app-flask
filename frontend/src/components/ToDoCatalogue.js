@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
-
-//import RNHTMLtoPDF from 'react-native-html-to-pdf';
+import style from './todocatalogue.module.css'
 
 const SERVER_URL = 'http://localhost:5000'
 const API_URL = SERVER_URL + '/api'
+export const STATIC_URL = SERVER_URL + '/static'
+
+
 
 class ToDoCatalogue extends Component {
   constructor(props) {
@@ -17,7 +19,8 @@ class ToDoCatalogue extends Component {
       "nom_produit_update": "",
       "gamme_produit_update": "",
       "puissance_produit_update": "",
-      "image_produit_update": ""
+      "image_produit_update": "",
+      "valueHref": ""
     };
     //avec un seul hangleFormChange : OK
     this.handleFormInputChange = this.handleFormInputChange.bind(this);
@@ -65,22 +68,6 @@ class ToDoCatalogue extends Component {
       });
     })
   }
-
-/*  ajouterProduit() {
-    return fetch(API_URL + '/produits', 
-    { 
-      method: 'POST', 
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify(
-        {'nom': this.state.nom_produit_add, 'image': this.state.image_produit_add,
-        'qty': this.state.qty_produit_add, 'prix': this.state.prix_produit_add})
-    }).then(response => response.json())
-    .then(data => { 
-      this.setState({"message": data.message}); 
-      return this.getListProduits(); 
-    })
-  }
-*/
   handleDeleteClick = (id, e) => {
     e.preventDefault();
     console.log('The link delete was clicked.');
@@ -97,25 +84,7 @@ class ToDoCatalogue extends Component {
         "image_produit_update": ""
       });
     }
-
   };
-
-  handlePDFClick = (produit, e) => {
-    e.preventDefault();
-    console.log('The link PDF was clicked.', produit);
-    const generateHTML = produit =>
-        <div><span>${produit}</span></div>
-
-    const html = generateHTML(this.state.produit)
-    console.log('The link PDF was clicked.', produit)
-
-    const options = {html,
-        fileName: "test",
-        directory: "Documents"
-    };
-   // const file = RNHTMLtoPDF.convert(options);
-
-  }
 
   handleUpdateClick = (id, e) => {
     e.preventDefault();
@@ -176,72 +145,68 @@ class ToDoCatalogue extends Component {
       <div className="App">
 
         <h2>{message}</h2>
-{/*
-        <h2>Ajout de produit</h2>
-        <form align="center">
-          Nom Produit : <input onChange={this.handleFormInputChange} type="text" name="nom_produit_add" value={this.state.nom_produit_add}  />          
-          <br />
-          Image Produit : <input onChange={this.handleFormInputChange} type="text" name="image_produit_add" value={this.state.image_produit_add} />
-          <br />
-          Quantité : <input onChange={this.handleFormInputChange} type="number" name="qty_produit_add" value={this.state.qty_produit_add} />
-          <br />
-          Prix : <input onChange={this.handleFormInputChange} type="number" name="prix_produit_add" value={this.state.prix_produit_add} />
-          <br />
-          <button onClick={this.handleAddClick}>Ajouter</button>         
-        </form>
-*/}
-        <div style={this.state.display_update_form ? {} : { display: 'none' }}>
-        <h2>Modifier le produit d'id = {this.state.idEngin_produit_update}</h2>
-        <a href='' onClick={this.handleHideUpdateFormClick.bind(this)}>Fermer le formulaire de mise à jour</a>
-        <br />
-        <br />
-        <form align="center">
-          Nom Produit : <input onChange={this.handleFormInputChange} type="text" name="nom_produit_update" value={this.state.nom_produit_update}  />          
-          <br />
-          Gamme : <input onChange={this.handleFormInputChange} type="text" name="gamme_produit_update" value={this.state.gamme_produit_update} />
-          <br />
-          Puissance : <input onChange={this.handleFormInputChange} type="text" name="puissance_produit_update" value={this.state.puissance_produit_update} />
-          <br />
-          Image  : <input onChange={this.handleFormInputChange} type="text" name="image_produit_update" value={this.state.image_produit_update} />
-          <br />
-          <button onClick={this.handleUpdateClick.bind(this, this.state.idEngin_produit_update)}>Mettre à jour</button>
-        </form>
-        </div>
-        <h2>Liste des produits</h2>
-        <center>
-        <table border="1">
-            <thead>
-            <tr>
-                <td>ID Produit</td>
-                <td>Nom Produit</td>
-                <td>Gamme</td>
-                <td>Puissance</td>
-                <td>Image </td>
-                <td>Modifier Produit</td>                
-                <td>Supprimer Produit</td>
-                <td>PDF Produit</td>
-            </tr>
-            </thead>
-            <tbody>
-                {data.map((produit, i) =>
-                <tr align="center" key={produit.id}>
-                  <td>{ produit.idEngin }</td>
-                  <td>{ produit.nom }</td>
-                  <td>{ produit.gamme }</td>
-                  <td>{ produit.puissance }</td>
-                  <td>{ produit.image }</td>
-                  <td><a href="#" onClick={this.handleDisplayFormUpdateClick.bind(this, produit.idEngin)}>Modifier Produit</a></td>
-                  <td><a href="#" onClick={this.handleDeleteClick.bind(this, produit.idEngin)}>Supprimer</a></td>
-                  <td><a href="#" onClick={this.handlePDFClick.bind(this, produit)}>PDF</a></td>
-                </tr>)
-                }
-            </tbody>            
-        </table> 
-        </center>
-      </div>
-    );
-  
 
+        <div style={this.state.display_update_form ? {} : { display: 'none' }}>
+            <h2>Modifier le produit d'id = {this.state.idEngin_produit_update}</h2>
+            <a href='valueHref' onClick={this.handleHideUpdateFormClick.bind(this)}>Fermer le formulaire de mise à jour</a>
+            <br />
+            <br />
+            <form align="center">
+                <div className="login">
+                    <div className="login-screen">
+                        <div className="app-title"><h1>Formulaire de modification</h1></div>
+                        <div className="login-form">
+                            Nom Produit : <input className="control-group" onChange={this.handleFormInputChange} type="text" name="nom_produit_update" value={this.state.nom_produit_update}  />
+                            <br />
+                            Gamme : <input className="control-group" onChange={this.handleFormInputChange} type="text" name="gamme_produit_update" value={this.state.gamme_produit_update} />
+                            <br />
+                            Puissance : <input className="control-group" onChange={this.handleFormInputChange} type="text" name="puissance_produit_update" value={this.state.puissance_produit_update} />
+                            <br />
+                            Image  : <input className="control-group" onChange={this.handleFormInputChange} type="text" name="image_produit_update" value={this.state.image_produit_update} />
+                            <br />
+                            <button onClick={this.handleUpdateClick.bind(this, this.state.idEngin_produit_update)} className="btn btn-primary btn-large btn-block" >Mettre à jour</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <h2 className={style.titreH2}>Liste des produits</h2>
+            <center>
+                <table border="1">
+                    {/* en-tête tableau */}
+                    <thead>
+                        <tr>
+                            <td>ID Produit</td>
+                            <td>Nom Produit</td>
+                            <td>Gamme</td>
+                            <td>Puissance</td>
+                            <td>Image </td>
+                            <td>Modifier Produit</td>
+                            <td>Supprimer Produit</td>
+                        </tr>
+                    </thead>
+                    {/* corps du tableau */}
+                    <tbody>
+                    {data.map((produit, i) =>
+                    <tr align="center" key={produit.idEngin}>
+                        <td>{ produit.idEngin }</td>
+                        <td>{ produit.nom }</td>
+                        <td>{ produit.gamme }</td>
+                        <td>{ produit.puissance }</td>
+                        <td>{produit.image !== "" ?
+                        <img width="50px" height="50px" alt={produit.image} src={STATIC_URL + '/uploads/produits/' + produit.image} />
+                        : "Pas d'image"}
+                        </td>
+                        <td><a href="valueHref" onClick={this.handleDisplayFormUpdateClick.bind(this, produit.idEngin)}>Modifier Produit</a></td>
+                        <td><a href="valueHref" onClick={this.handleDeleteClick.bind(this, produit.idEngin)}>Supprimer</a></td>
+                    </tr>)
+                    }
+                    </tbody>
+                </table>
+            </center>
+        </div>
+    );
   }
 }
 

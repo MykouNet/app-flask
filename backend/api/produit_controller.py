@@ -3,7 +3,15 @@ from . import routesAPIREST
 from flask import session, redirect, request, render_template
 
 from .services import ProduitService
-    
+from werkzeug import secure_filename
+
+import os
+import uuid
+
+# Create a directory in a known location to save files to.
+uploads_dir_produits = os.path.join(os.path.dirname(__file__), '../static/uploads/produits')
+os.makedirs(uploads_dir_produits, exist_ok=True)
+
 #Pour tester : Utiliser POSTMAN
 @routesAPIREST.route('/catalogue', methods=['GET'])
 def list_produits_controlleur(): 
@@ -35,11 +43,11 @@ def get_produit_controlleur(id):
         return jsonify({ "message": "Le produit n'existe pas." })
 
     p = {}
-    p['id'] = produit.id
+    p['idEngin'] = produit.idEngin
     p['nom'] = produit.nom
+    p['gamme'] = produit.gamme
+    p['puissance'] = produit.puissance
     p['image'] = produit.image
-    p['qty'] = produit.qty
-    p['prix'] = produit.prix
 
     return jsonify(p)
 
@@ -76,12 +84,50 @@ def delete_produit_controlleur(id):
 
 
 #Pour tester : Utiliser POSTMAN
-@routesAPIREST.route('/catalogue', methods=['POST'])
+@routesAPIREST.route('/ajout', methods=['POST'])
 def create_catalogue_controlleur():
     #Ajouter le produit dans la base de données
     #Fonctionnel
+
+    # Fonctionne avec un Content-Type: application/json
+    # produit = request.json
+
+    ##Code traitant la récupération en FormData les données
+    nom_produit = request.form.get('nom')
+    print("nom produit ", nom_produit)
+    gamme_produit = request.form.get('gamme')
+    puissance_produit = request.form.get('puissance')
+
+    produit = {}
+    produit['nom'] = nom_produit
+    produit['gamme'] = gamme_produit
+    produit['puissance'] = puissance_produit
+    produit['image'] = ""
+
+    ## Gestion de l'upload
+    if 'image' in request.files:
+        # récupération de l'objet contenant les informations
+        # du fichier uploadé
+        image_produit = request.files['image']
+
+        # Enregistrer le fichier dans le dossier upload de l'utilisateur
+        filename_final = secure_filename(image_produit.filename)
+        extension_filename = ""
+        if "." in filename_final:
+            extension_filename = filename_final.split(".")[-1]
+        # uuid.uuid4().hex --> '9fe2c4e93f654fdbb24c02b15259716c'
+        filename_final = uuid.uuid4().hex + "." + extension_filename
+
+        destination_filename = os.path.join(uploads_dir_produits, filename_final)
+        image_produit.save(destination_filename)
+        print("Filename upload : ", filename_final)
+
+        produit['image'] = filename_final
+
+
+
+    # ajout du produit dans la BD
     produitService = ProduitService()
-    produit = request.json
     isOk = produitService.createProduit(produit)
 
     if not isOk:

@@ -1,21 +1,9 @@
 import axios from 'axios'
 
-export const register = newUser => {
-    return axios
-    .post('http://localhost:5000/api/register', {
-        idMatricule : newUser.idMatricule,
-        motDePasse  : newUser.motDePasse,
-        fonction    : newUser.fonction
-    })
-    .then(res => {
-        console.log(res)
-    })
-}
-
 export const catalogue = newProduit => {
+    console.log(newProduit)
     return axios
     .post('http://localhost:5000/api/catalogue', {
-        idEngin : newProduit.idEngin,
         nom  : newProduit.nom,
         gamme    : newProduit.gamme,
         puissance : newProduit.puissance,
@@ -23,6 +11,23 @@ export const catalogue = newProduit => {
     })
     .then(res => {
         console.log(res)
+    })
+}
+
+export const register = async newUser => {
+    const { idMatricule, fonction, motDePasse } = newUser
+    console.log(newUser)
+    if (!(idMatricule && fonction))
+        return {status: 'error'}
+    console.log('Je passe')
+    return axios
+    .post('http://localhost:5000/api/register', {
+        idMatricule,
+        motDePasse,
+        fonction
+    })
+    .then(response => {
+        return response
     })
 }
 
@@ -34,17 +39,19 @@ export const login = user => {
     })
     .then(res => {
         const data = res.data
-        console.log(res.data)
-        if (data.message === 'bien loggué.') {
+        console.log(data)
+        if (data.message !== "id / mdp incorrects.") {
                     console.log("ici")
+            localStorage.setItem("fonction", res.data.fonction)
             localStorage.setItem('usertoken', res.data.token)
         }
         return res.data
     })
-//    .catch(err => {
-//        console.log(err)
-//    })
+    .catch(err => {
+        console.log(err)
+    })
  }
+
  export const profile = user => {
     return axios
     .get('http://localhost:5000/api/login' + user, {
@@ -60,4 +67,33 @@ export const login = user => {
 //    .catch(err => {
 //        console.log(err)
 //    })
+ }
+
+export const recupMDP = () => {
+    return axios
+    .get('http://localhost:5000/api/register', {
+    })
+    .then(res => {
+        console.log(res)
+        return res.data
+    })
+}
+
+export const reinit = user => {
+    return axios
+    .post('http://localhost:5000/api/passinitialisation', {
+        idMatricule:    user.idMatricule,
+        motDePasse:     user.motDePasse
+    })
+    .then(res => {
+        const data = res.data
+        console.log(data)
+        if (data.message !== "id / mdp incorrects.") {
+                    console.log("ici")
+        }
+        return res.data
+    })
+    .catch(err => {
+        console.log(err)
+    })
  }

@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
-import { catalogue } from './UserFunctions'
-import ToDoCatalogue from './ToDoCatalogue'
-import Shop from './Shop'
+
+const SERVER_URL = 'http://localhost:5000'
+const API_URL = SERVER_URL + '/api'
 
 class AjoutEngin extends Component {
     constructor() {
@@ -11,7 +11,8 @@ class AjoutEngin extends Component {
             nom:'',
             gamme:'',
             puissance:'',
-            image: ''
+            image: '',
+            submitResult:''
         }
 
         this.onChange = this.onChange.bind(this)
@@ -24,18 +25,51 @@ class AjoutEngin extends Component {
     onSubmit(e){
         e.preventDefault()
 
-        const newProduit = {
-            idEngin:    this.state.idEngin,
-            nom:        this.state.nom,
-            gamme:      this.state.gamme,
-            puissance:  this.state.puissance,
-            image:      this.state.image
+        let image_produit = "";
+        let image_input_element = document.querySelector("#image")
+        if (image_input_element.value !== "") {
+        image_produit = image_input_element.files[0]; //Info + Contenu du fichier
         }
 
-        catalogue(newProduit).then(res => {
-                console.log("retour")
-                this.props.history.push('/catalogue')
-        })
+        let nom = this.state.nom;
+        let gamme = this.state.gamme;
+        let puissance =  this.state.puissance;
+
+        let data = new FormData();
+        data.append('nom', nom);
+        data.append('image', image_produit);
+        data.append('gamme', gamme);
+        data.append('puissance', puissance);
+
+        console.log("data : " + nom)
+
+        if (!(nom && gamme && puissance))
+            return  this.setState({
+                        submitResult: 'Un problème est survenu - l\'engin n\'a pas pu être enregistré'
+                    })
+
+        return fetch(API_URL + '/ajout',
+        {
+        method: 'POST',
+        headers: {
+          'Authorization': window.sessionStorage["token"]
+        },
+        body: data
+        }).then(response => {
+        if (response.status !== 200) {
+            throw new Error(response)
+        }
+        return  response.json(),
+                this.setState({
+                    idEngin:'',
+                    nom:'',
+                    gamme:'',
+                    puissance:'',
+                    image: '',
+                    submitResult: 'Le nouvel engin a bien été ajouté.'
+                })
+            }
+        );
     }
 
     render (){
@@ -43,36 +77,25 @@ class AjoutEngin extends Component {
             <div>
                 <form noValidate onSubmit={this.onSubmit}>
 
-                         <div className="login">
-                        <div class="login-screen">
-                        <div class="app-title"><h1>entrez un nouvel Engin</h1></div>
-                        <div class="login-form">
+                   <div className="login">
+                    <div className="login-screen">
+                    <div className="app-title"><h1>Ajoutez un nouvel engin</h1></div>
+                    <div className="login-form">
 
-{/*                        <div>
-                            <label htmlFor="idEngin">idEngin</label>
-                            <input type="text" name="idEngin" value={this.state.idEngin} onChange={this.onChange} />
-                        </div>*/}
-                        <div class="control-group">
-                            <label htmlFor="nom" class="login-field-icon fui-lock"></label>
-                            <input type="text" name="nom" value={this.state.nom} onChange={this.onChange}
-                             placeholder="nom" class="login-field"/>
+                        <div className="control-group">
+                            <input type="text" name="nom" value={this.state.nom} onChange={this.onChange} placeholder="nom Engin"/>
                         </div>
-                         <div class="control-group">
-                            <label htmlFor="gamme" class="login-field-icon fui-lock"></label>
-                            <input type="text" name="gamme" value={this.state.gamme} onChange={this.onChange}
-                             placeholder="gamme" class="login-field"/>
+                         <div className="control-group">
+                            <input type="text" name="gamme" value={this.state.gamme} onChange={this.onChange} placeholder="gamme"/>
                         </div>
-                        <div class="control-group">
-                            <label htmlFor="puissance" class="login-field-icon fui-lock"></label>
-                            <input type="text" name="puissance" value={this.state.puissance} onChange={this.onChange}
-                             placeholder="puissance" class="login-field"/>
+                        <div className="control-group">
+                            <input type="text" name="puissance" value={this.state.puissance} onChange={this.onChange} placeholder="puissance"/>
                         </div>
-                         <div class="control-group">
-                            <label htmlFor="image" class="login-field-icon fui-lock"></label>
-                            <input type="text" name="image" value={this.state.image} onChange={this.onChange}
-                             placeholder="image" class="login-field"/>
+                         <div className="control-group">
+                            <input id="image" type="file" name="image" onChange={this.onChange} placeholder="image"/>
                         </div>
-                        <input type="submit" value="Register" class="btn btn-primary btn-large btn-block" />
+                        <p>{this.state.submitResult}</p>
+                        <input type="submit" value="Ajouter nouveau produit" className="btn btn-primary btn-large btn-block" />
 
                         </div>
                         </div>
